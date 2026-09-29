@@ -6,6 +6,9 @@ export interface Port {
   id: number;
   name: string;
   unlocode: string;
+  /** Set by getById (not in the logistic objects list). */
+  countryId?: number;
+  cityId?: number;
 }
 
 /** Record of GET logisticobjects/list: ports, resources and terminals in one list. */

@@ -18,7 +18,7 @@
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
-import { apiLogin } from '../api/auth';
+import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ClientsApi, type Client, type ClientEnsureResult, type CreateClientRequest } from '../api/clients';
 import { GeoApi } from '../api/geo';
@@ -49,7 +49,7 @@ async function main(): Promise<void> {
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
   const selected = items.slice(0, limitArg(1));
 
-  await apiLogin();
+  await ensureApiSession();
   const api = await ApiClient.create();
   const results: { key: string; result: ClientEnsureResult }[] = [];
   const cityNotes = new Map<string, string>();

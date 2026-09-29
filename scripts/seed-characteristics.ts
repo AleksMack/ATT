@@ -13,7 +13,7 @@
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
-import { apiLogin } from '../api/auth';
+import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { PhysicalCharacteristicsApi, type CharacteristicEnsureResult as EnsureResult } from '../api/physicalCharacteristics';
 import { assertWorkbookWritable, markRows, readSheet, type RowStatus } from './master-data/workbook';
@@ -32,7 +32,7 @@ async function main(): Promise<void> {
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
 
-  await apiLogin();
+  await ensureApiSession();
   const api = await ApiClient.create();
   let results: EnsureResult[];
   try {

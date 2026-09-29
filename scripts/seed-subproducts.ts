@@ -17,7 +17,7 @@
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
-import { apiLogin } from '../api/auth';
+import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ProductsApi, type CreateProductRequest, type Product, type ProductEnsureResult } from '../api/products';
 import { loadCharacteristicLinks } from './master-data/characteristicLinks';
@@ -47,7 +47,7 @@ async function main(): Promise<void> {
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
   const selected = items.slice(0, limitArg(1));
 
-  await apiLogin();
+  await ensureApiSession();
   const api = await ApiClient.create();
   const products = new ProductsApi(api);
   const results: { key: string; result: ProductEnsureResult }[] = [];

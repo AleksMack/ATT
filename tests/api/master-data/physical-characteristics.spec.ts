@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import { apiLogin } from '../../../api/auth';
 import { ApiClient, type ApiEnvelope } from '../../../api/client';
 import {
   CHARACTERISTIC_NAME_MAX_LENGTH,
@@ -15,7 +14,7 @@ test.describe('Master data: physical characteristics', () => {
   let physicalCharacteristics: PhysicalCharacteristicsApi;
 
   test.beforeAll(async () => {
-    await apiLogin();
+    // The session is saved by the api-setup project
     api = await ApiClient.create();
     physicalCharacteristics = new PhysicalCharacteristicsApi(api);
   });

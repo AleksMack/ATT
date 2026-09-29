@@ -1,0 +1,415 @@
+[
+  {
+    "key": "TRM-001",
+    "name": "Fujairah Oil Industry Zone – Terminal 1",
+    "portId": "PRT-001",
+    "country": "United Arab Emirates",
+    "notes": "Deep-water jetties; blending"
+  },
+  {
+    "key": "TRM-002",
+    "name": "Fujairah Oil Industry Zone – Terminal 2",
+    "portId": "PRT-001",
+    "country": "United Arab Emirates",
+    "notes": "VLSFO component storage"
+  },
+  {
+    "key": "TRM-003",
+    "name": "Fujairah Bunker Anchorage",
+    "portId": "PRT-001",
+    "country": "United Arab Emirates",
+    "notes": "Barge-delivered bunkers at anchorage"
+  },
+  {
+    "key": "TRM-004",
+    "name": "Jebel Ali Products Jetty",
+    "portId": "PRT-002",
+    "country": "United Arab Emirates",
+    "notes": "Pipeline to inland depots"
+  },
+  {
+    "key": "TRM-005",
+    "name": "Ruwais Refinery Export Jetty",
+    "portId": "PRT-003",
+    "country": "United Arab Emirates",
+    "notes": "Refinery-owned berths"
+  },
+  {
+    "key": "TRM-006",
+    "name": "Ruwais Crude Terminal",
+    "portId": "PRT-003",
+    "country": "United Arab Emirates",
+    "notes": "VLCC-capable SBM"
+  },
+  {
+    "key": "TRM-007",
+    "name": "Khor Fakkan Bunker Terminal",
+    "portId": "PRT-004",
+    "country": "United Arab Emirates",
+    "notes": "Container-port bunkering"
+  },
+  {
+    "key": "TRM-008",
+    "name": "Hamriyah Free Zone Oil Terminal",
+    "portId": "PRT-005",
+    "country": "United Arab Emirates",
+    "notes": "Bitumen heated tankage"
+  },
+  {
+    "key": "TRM-009",
+    "name": "Mina Zayed Products Berth",
+    "portId": "PRT-006",
+    "country": "United Arab Emirates",
+    "notes": "Urban depot supply"
+  },
+  {
+    "key": "TRM-010",
+    "name": "Das Island Crude & Condensate Terminal",
+    "portId": "PRT-007",
+    "country": "United Arab Emirates",
+    "notes": "Offshore island terminal"
+  },
+  {
+    "key": "TRM-011",
+    "name": "Jebel Dhanna Murban Export Terminal",
+    "portId": "PRT-008",
+    "country": "United Arab Emirates",
+    "notes": "Main Murban loading point"
+  },
+  {
+    "key": "TRM-012",
+    "name": "Apapa Petroleum Products Terminal",
+    "portId": "PRT-009",
+    "country": "Nigeria",
+    "notes": "Draft-limited; lightering from offshore"
+  },
+  {
+    "key": "TRM-013",
+    "name": "Apapa Bulk Products Jetty (Ijora)",
+    "portId": "PRT-009",
+    "country": "Nigeria",
+    "notes": "Depot cluster access"
+  },
+  {
+    "key": "TRM-014",
+    "name": "Lagos Offshore STS Zone",
+    "portId": "PRT-010",
+    "country": "Nigeria",
+    "notes": "Mother-vessel to daughter-vessel transfers"
+  },
+  {
+    "key": "TRM-015",
+    "name": "Port Harcourt Refinery Jetty",
+    "portId": "PRT-011",
+    "country": "Nigeria",
+    "notes": "Bonny River; tidal restrictions"
+  },
+  {
+    "key": "TRM-016",
+    "name": "Onne Oil & Gas Free Zone Terminal",
+    "portId": "PRT-012",
+    "country": "Nigeria",
+    "notes": "Offshore supply hub"
+  },
+  {
+    "key": "TRM-017",
+    "name": "Bonny Crude Oil Terminal",
+    "portId": "PRT-013",
+    "country": "Nigeria",
+    "notes": "Offshore SBM; 2 loading points"
+  },
+  {
+    "key": "TRM-018",
+    "name": "Escravos Crude Terminal",
+    "portId": "PRT-014",
+    "country": "Nigeria",
+    "notes": "Offshore loading"
+  },
+  {
+    "key": "TRM-019",
+    "name": "Forcados Oil Terminal",
+    "portId": "PRT-015",
+    "country": "Nigeria",
+    "notes": "Offshore SBM"
+  },
+  {
+    "key": "TRM-020",
+    "name": "Brass River Terminal",
+    "portId": "PRT-016",
+    "country": "Nigeria",
+    "notes": "Offshore SBM"
+  },
+  {
+    "key": "TRM-021",
+    "name": "Warri Refinery Jetty",
+    "portId": "PRT-017",
+    "country": "Nigeria",
+    "notes": "Escravos River; shallow"
+  },
+  {
+    "key": "TRM-022",
+    "name": "Calabar Petroleum Depot Jetty",
+    "portId": "PRT-018",
+    "country": "Nigeria",
+    "notes": "Small parcels only"
+  },
+  {
+    "key": "TRM-023",
+    "name": "Zhenhai Crude Import Terminal",
+    "portId": "PRT-019",
+    "country": "China",
+    "notes": "VLCC berth; refinery-linked"
+  },
+  {
+    "key": "TRM-024",
+    "name": "Ningbo Daxie Products Terminal",
+    "portId": "PRT-019",
+    "country": "China",
+    "notes": "Bonded storage"
+  },
+  {
+    "key": "TRM-025",
+    "name": "Qingdao Huangdao Crude Terminal",
+    "portId": "PRT-020",
+    "country": "China",
+    "notes": "Pipeline to Shandong refineries"
+  },
+  {
+    "key": "TRM-026",
+    "name": "Dalian Xingang Crude Terminal",
+    "portId": "PRT-021",
+    "country": "China",
+    "notes": "Northeast China supply"
+  },
+  {
+    "key": "TRM-027",
+    "name": "Shanghai Yangshan Products Terminal",
+    "portId": "PRT-022",
+    "country": "China",
+    "notes": "Deep-water island port"
+  },
+  {
+    "key": "TRM-028",
+    "name": "Tianjin Nangang Crude & Products Terminal",
+    "portId": "PRT-023",
+    "country": "China",
+    "notes": "Petrochemical zone"
+  },
+  {
+    "key": "TRM-029",
+    "name": "Zhoushan Aoshan Storage Base",
+    "portId": "PRT-024",
+    "country": "China",
+    "notes": "National reserve + bonded bunkering"
+  },
+  {
+    "key": "TRM-030",
+    "name": "Zhoushan Bunker Anchorage",
+    "portId": "PRT-024",
+    "country": "China",
+    "notes": "Bonded bunker supply"
+  },
+  {
+    "key": "TRM-031",
+    "name": "Zhanjiang Crude Terminal",
+    "portId": "PRT-025",
+    "country": "China",
+    "notes": "South China refinery supply"
+  },
+  {
+    "key": "TRM-032",
+    "name": "Huizhou Daya Bay Crude Terminal",
+    "portId": "PRT-026",
+    "country": "China",
+    "notes": "Refinery-linked"
+  },
+  {
+    "key": "TRM-033",
+    "name": "Rizhao Lanshan Crude Terminal",
+    "portId": "PRT-027",
+    "country": "China",
+    "notes": "Pipeline to inland refineries"
+  },
+  {
+    "key": "TRM-034",
+    "name": "Yantai Products Jetty",
+    "portId": "PRT-028",
+    "country": "China",
+    "notes": "Shandong products hub"
+  },
+  {
+    "key": "TRM-035",
+    "name": "Qinzhou Refinery Terminal",
+    "portId": "PRT-029",
+    "country": "China",
+    "notes": "Guangxi refinery"
+  },
+  {
+    "key": "TRM-036",
+    "name": "Tashkent Oil Depot Rail Rack",
+    "portId": "PRT-030",
+    "country": "Uzbekistan",
+    "notes": "Rail tank car unloading; 24 spots"
+  },
+  {
+    "key": "TRM-037",
+    "name": "Termez Transshipment Rail Terminal",
+    "portId": "PRT-031",
+    "country": "Uzbekistan",
+    "notes": "Cross-border rail; broad/standard gauge"
+  },
+  {
+    "key": "TRM-038",
+    "name": "Bukhara Refinery Rail Rack",
+    "portId": "PRT-032",
+    "country": "Uzbekistan",
+    "notes": "Refinery-owned loading rack"
+  },
+  {
+    "key": "TRM-039",
+    "name": "Fergana Refinery Rail Rack",
+    "portId": "PRT-033",
+    "country": "Uzbekistan",
+    "notes": "Refinery-owned loading rack"
+  },
+  {
+    "key": "TRM-040",
+    "name": "Navoi Products Rail Terminal",
+    "portId": "PRT-034",
+    "country": "Uzbekistan",
+    "notes": "Industrial zone supply"
+  },
+  {
+    "key": "TRM-041",
+    "name": "Santos Alemoa Products Terminal",
+    "portId": "PRT-035",
+    "country": "Brazil",
+    "notes": "Liquid bulk terminal cluster"
+  },
+  {
+    "key": "TRM-042",
+    "name": "Santos Barnabé Storage Terminal",
+    "portId": "PRT-035",
+    "country": "Brazil",
+    "notes": "Island terminal"
+  },
+  {
+    "key": "TRM-043",
+    "name": "Ilha d'Água Terminal (Rio)",
+    "portId": "PRT-036",
+    "country": "Brazil",
+    "notes": "Bunker supply to Rio anchorage"
+  },
+  {
+    "key": "TRM-044",
+    "name": "Paranaguá Liquid Bulk Terminal",
+    "portId": "PRT-037",
+    "country": "Brazil",
+    "notes": "Pipeline to Araucária refinery"
+  },
+  {
+    "key": "TRM-045",
+    "name": "Itaqui Liquid Bulk Berths 106/108",
+    "portId": "PRT-038",
+    "country": "Brazil",
+    "notes": "Deep-water; northern Brazil supply"
+  },
+  {
+    "key": "TRM-046",
+    "name": "Suape Refinery & Products Terminal",
+    "portId": "PRT-039",
+    "country": "Brazil",
+    "notes": "Refinery-linked"
+  },
+  {
+    "key": "TRM-047",
+    "name": "Madre de Deus Terminal (Salvador)",
+    "portId": "PRT-040",
+    "country": "Brazil",
+    "notes": "Refinery-linked; Bay of All Saints"
+  },
+  {
+    "key": "TRM-048",
+    "name": "São Sebastião Crude Terminal (TEBAR)",
+    "portId": "PRT-041",
+    "country": "Brazil",
+    "notes": "Pipeline to Paulínia & Cubatão"
+  },
+  {
+    "key": "TRM-049",
+    "name": "Angra dos Reis Crude Terminal (TEBIG)",
+    "portId": "PRT-042",
+    "country": "Brazil",
+    "notes": "Deep-water; VLCC loading"
+  },
+  {
+    "key": "TRM-050",
+    "name": "Rio Grande Products Terminal",
+    "portId": "PRT-043",
+    "country": "Brazil",
+    "notes": "Southern Brazil supply"
+  },
+  {
+    "key": "TRM-051",
+    "name": "Augusta Refinery Jetty (Priolo)",
+    "portId": "PRT-044",
+    "country": "Italy",
+    "notes": "Refinery-owned berths"
+  },
+  {
+    "key": "TRM-052",
+    "name": "Augusta Products Storage Terminal",
+    "portId": "PRT-044",
+    "country": "Italy",
+    "notes": "Independent storage"
+  },
+  {
+    "key": "TRM-053",
+    "name": "Trieste SIOT Crude Terminal",
+    "portId": "PRT-045",
+    "country": "Italy",
+    "notes": "TAL pipeline head to Central Europe"
+  },
+  {
+    "key": "TRM-054",
+    "name": "Genoa Multedo Oil Terminal",
+    "portId": "PRT-046",
+    "country": "Italy",
+    "notes": "Pipeline to Sannazzaro"
+  },
+  {
+    "key": "TRM-055",
+    "name": "Genoa Bunker Anchorage",
+    "portId": "PRT-046",
+    "country": "Italy",
+    "notes": "Barge-delivered bunkers"
+  },
+  {
+    "key": "TRM-056",
+    "name": "Milazzo Refinery Jetty",
+    "portId": "PRT-047",
+    "country": "Italy",
+    "notes": "Refinery-owned berths"
+  },
+  {
+    "key": "TRM-057",
+    "name": "Sarroch Refinery Terminal",
+    "portId": "PRT-048",
+    "country": "Italy",
+    "notes": "Deep-water; VLCC-capable"
+  },
+  {
+    "key": "TRM-058",
+    "name": "Livorno Products Terminal",
+    "portId": "PRT-049",
+    "country": "Italy",
+    "notes": "Refinery-linked"
+  },
+  {
+    "key": "TRM-059",
+    "name": "Taranto Refinery Jetty",
+    "portId": "PRT-050",
+    "country": "Italy",
+    "notes": "Refinery-owned berths"
+  }
+]

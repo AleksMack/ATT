@@ -25,6 +25,7 @@ const SEEDS = [
   'seed-client-accounts',
   'seed-vessels',
   'seed-ports',
+  'seed-terminals',
   'seed-resources',
   'seed-projects',
   'seed-subprojects',

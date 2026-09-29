@@ -22,6 +22,7 @@ export type IdMapResource =
   | 'clientAccounts'
   | 'vessels'
   | 'ports'
+  | 'terminals'
   | 'resources'
   | 'projects'
   | 'subprojects';

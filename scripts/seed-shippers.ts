@@ -12,7 +12,7 @@
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
-import { apiLogin } from '../api/auth';
+import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ShippersApi, type Shipper, type ShipperEnsureResult } from '../api/shippers';
 import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
@@ -28,7 +28,7 @@ async function main(): Promise<void> {
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
   const selected = items.slice(0, limitArg(items.length));
 
-  await apiLogin();
+  await ensureApiSession();
   const api = await ApiClient.create();
   let results: { key: string; result: ShipperEnsureResult }[];
   try {

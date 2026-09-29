@@ -41,11 +41,11 @@ export default defineConfig({
   },
 
   projects: [
-    // 1. Log in and save the session to AUTH_FILE
+    // 1. UI login: save the browser session to AUTH_FILE
     {
       name: 'setup',
       testDir: './tests/setup',
-      testMatch: /.*\.setup\.ts/,
+      testMatch: /auth\.setup\.ts/,
       use: {
         // Traces record fill() values and videos show the OTP field,
         // so keep only the failure screenshot (password field is masked)
@@ -65,10 +65,20 @@ export default defineConfig({
       },
     },
 
-    // 3. API tests
+    // 3. API session: reuse the saved one, log in only if needed (login takes ~6 s on uat)
+    {
+      name: 'api-setup',
+      testDir: './tests/setup',
+      testMatch: /api\.setup\.ts/,
+      // Traces record API request bodies, including the login password
+      use: { trace: 'off' },
+    },
+
+    // 4. API tests (use the session from api-setup)
     {
       name: 'api',
       testDir: './tests/api',
+      dependencies: ['api-setup'],
       use: {
         baseURL: process.env.API_URL,
         // Traces record API request bodies, including the login password

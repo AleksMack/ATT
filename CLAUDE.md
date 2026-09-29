@@ -35,6 +35,7 @@ npm run seed:vessels [-- --limit N]            # seed vessels from tab 4 (needs 
 npm run seed:escalations [-- --limit N]        # seed escalations from tab 10 (needs characteristics; default: first only)
 npm run seed:ports [-- --limit N]              # seed ports from tab 12 (key: UN/LOCODE; default: first only)
 npm run seed:resources [-- --limit N]          # seed resources from tab 13 (key: name; default: first only)
+npm run seed:terminals [-- --limit N]          # seed terminals from tab 15 (needs ports; country and city are the port's; default: first only)
 ```
 
 Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Each run first clears the marks of its tab, so the colors show only that run. Characteristic links go by Characteristic ID through tab 7 (`scripts/master-data/characteristicLinks.ts`). Order: characteristics, then products, then subproducts. Close the workbook in Excel before running a seed, or the write fails.
@@ -45,13 +46,14 @@ Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Maste
 
 ## Architecture (playwright.config.ts)
 
-Three projects with distinct directories:
+Four projects:
 
-1. **`setup`** — `tests/setup/*.setup.ts`. `auth.setup.ts` logs in once and saves session state to `playwright/.auth/user.json` (exported as `AUTH_FILE` from the config; gitignored). Trace and video are off for this project because they would record the password and OTP.
+1. **`setup`** — `tests/setup/auth.setup.ts` (UI login) logs in once and saves session state to `playwright/.auth/user.json` (exported as `AUTH_FILE` from the config; gitignored). Trace and video are off for this project because they would record the password and OTP.
 
    Login is three screens: Login + Password → "Next"; "Select verification method" → "Use OTP from the app"; "OTP password" → "Login"; then the app lands on `/dashboard`. The test stand accepts a fixed OTP (`USER_OTP`). The first click on the verification method is sometimes ignored while the screen is still switching, so it is retried with `toPass()`.
 2. **`ui`** — `tests/ui/`, depends on `setup`, Desktop Chrome at 1600x900. It uses the saved `storageState` **only if the file already exists when the config is loaded**, so on a fresh checkout the first run's UI tests start unauthenticated. Run `--project=setup` first, or restructure if that becomes a problem.
-3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup`: API tests log in with `apiLogin()` (`POST login/checkloginpassword`, then `POST login/loginotp` with `otpPasswordType: false`) and use `ApiClient`. Trace is off for this project because it would record the login request body.
+3. **`api-setup`** — `tests/setup/api.setup.ts`: `ensureApiSession()` reuses the API session saved in `playwright/.auth/api-state.json` (one `user/activeUserData` check) and logs in only if it is not valid. Login (`POST login/loginotp` with `{ user, password, oneTimePassword }`) takes about 6 s on uat, and repeated failed logins lock the user, so nothing else should log in: seed scripts call `ensureApiSession()` too. Trace is off because it would record the login request body.
+4. **`api`** — `tests/api/`, depends on `api-setup`; tests use `ApiClient.create()` with the saved session. Only `login.spec.ts` logs in on purpose, because it tests login itself. Trace is off.
 
    API facts: the test environment is **uat** (`BASE_URL=https://uat.ctrm.biz`, `API_URL=https://uat-api.ctrm.biz/api/`); Swagger is at `https://uat-api.ctrm.biz/swagger/v1/swagger.json` and saved as `docs/openapi.json` (`docs/discovery.md` describes the older ba01 stand). Several failed logins lock the user name (`errorCode` 100009), so never retry a failed login in a loop. Every response is wrapped as `{ data, error: { errorCode } }` (0 = success; `ApiClient.getData()`/`postData()` unwrap it). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (`data` is `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
 

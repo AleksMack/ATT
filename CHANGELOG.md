@@ -12,6 +12,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
 
+## 2026-09-29 — Add terminals seed, reuse API session, full reseed on uat
+
+### Changed
+- API tests no longer log in themselves (only `login.spec.ts`, which tests login): 24 s -> 12.7 s with a saved session, 18.3 s without. All seed scripts use `ensureApiSession()` instead of logging in on every run (15 logins, about 90 s, saved in `seed:all`).
+
+### Added
+- `ensureApiSession()` in `api/auth.ts`: reuses the saved API session (one `user/activeUserData` check) and logs in only when it is not valid. Login takes about 6 s on uat.
+- `api-setup` Playwright project (`tests/setup/api.setup.ts`): prepares the API session once; the `api` project depends on it. The UI `setup` project now matches only `auth.setup.ts`.
+- Full reseed on uat after the database was cleaned (`npm run seed:all`, one run): 51 characteristics, 14 products, 23 subproducts, 36 escalations, 32 shippers (50 rows), 30 banks, 14 legal forms, 49 counterparties, 99 bank accounts, 49 vessels, 50 ports, 59 terminals, 50 resources, 6 projects, 50 subprojects. All errors are known workbook issues: 14 escalation names (Q-26) and CP-023 with its 2 accounts and 1 vessel (Q-01). Checked read-only: all 59 terminals have the country and city of their port.
+- `api/terminals.ts`: typed client for terminals (`terminals/list`, create, getbyid, delete), matched by name.
+- `scripts/seed-terminals.ts` (`npm run seed:terminals [-- --limit N]`, default 1; in `seed:all` and `seed:map` after ports): terminals from tab 15. portId via Port ID -> UN/LOCODE in tab 12 -> port in the system; countryId and cityId are taken from the port in the system (`ports/getbyid`), so terminal and port always match; the row's Country must equal the port's country in tab 12. addressLine = Notes. Also sends `countryId`, which the example request has although Swagger does not list it.
+
 ## 2026-09-29 — Add id map, ports and resources seed
 
 ### Added

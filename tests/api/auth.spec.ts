@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { apiLogin } from '../../api/auth';
 import { ApiClient, NO_SESSION, type ApiEnvelope, type PagedList } from '../../api/client';
 
 test.describe('API authentication', () => {
   test('should return 200 and a JSON list when the request uses the API login session', async () => {
-    await apiLogin();
+    // The session is saved by the api-setup project
     const api = await ApiClient.create();
 
     try {
