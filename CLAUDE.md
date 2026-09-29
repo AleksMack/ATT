@@ -40,4 +40,16 @@ Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because
 - `pages/` — page objects for the UI tests
 - `data/` — test data
 
-These are still empty (only `.gitkeep` files), and there is no `auth.setup.ts` yet. With no tests, `npx playwright test --list` exits with "No tests found"; add `--pass-with-no-tests` to just check that the config loads.
+- `specs/` — Markdown test plans written by the planner agent
+
+There is no `auth.setup.ts` yet.
+
+## AI tooling (Playwright MCP + Test Agents)
+
+`.mcp.json` defines two MCP servers. Both start via `cmd /c npx`, because on Windows a bare `npx` fails to launch (ENOENT):
+- `playwright` — `@playwright/mcp`, pinned to 0.0.83, for driving a browser interactively
+- `playwright-test` — `npx playwright run-test-mcp-server`, used by the Test Agents in `.claude/agents/`
+
+The agents are `playwright-test-planner` (explores the app and writes a plan to `specs/`), `playwright-test-generator` (turns plan items into spec files) and `playwright-test-healer` (runs and fixes failing tests). `tests/ui/seed.spec.ts` is the seed test the agents start from; put shared setup there (login, navigation), not assertions.
+
+Re-running `npx playwright init-agents` rewrites `.mcp.json` and drops the `playwright` server, so restore it afterwards.
