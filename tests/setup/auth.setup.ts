@@ -29,9 +29,10 @@ setup('authenticate', async ({ page }) => {
   await otpField.fill(USER_OTP!);
   await page.getByRole('button', { name: 'Login' }).click();
 
-  // Main page is loaded: dashboard URL and the main menu is visible
+  // Main page is loaded: dashboard URL and the app logo in the header.
+  // (Header buttons like "Трейдинг 3" are the user's pinned items and differ per user.)
   await page.waitForURL('**/dashboard');
-  await expect(page.getByRole('button', { name: /Трейдинг/ })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Concept Oil' })).toBeVisible();
 
   await page.context().storageState({ path: AUTH_FILE });
 });

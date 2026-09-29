@@ -1,0 +1,252 @@
+[
+  {
+    "key": "CH-001",
+    "name": "Density @ 15°C",
+    "comment": "Density at 15 °C, ASTM D1298 / D4052"
+  },
+  {
+    "key": "CH-002",
+    "name": "API Gravity",
+    "comment": "Calculated from density @ 60°F"
+  },
+  {
+    "key": "CH-003",
+    "name": "Sulphur Content",
+    "comment": "Total sulphur, ASTM D4294 / ISO 8754"
+  },
+  {
+    "key": "CH-004",
+    "name": "Sulphur Content (ppm)",
+    "comment": "Total sulphur for ULS grades, ASTM D5453"
+  },
+  {
+    "key": "CH-005",
+    "name": "Flash Point",
+    "comment": "Pensky-Martens closed cup, ASTM D93"
+  },
+  {
+    "key": "CH-006",
+    "name": "Kinematic Viscosity @ 40°C",
+    "comment": "ASTM D445"
+  },
+  {
+    "key": "CH-007",
+    "name": "Kinematic Viscosity @ 50°C",
+    "comment": "ASTM D445, residual fuels"
+  },
+  {
+    "key": "CH-008",
+    "name": "Kinematic Viscosity @ 100°C",
+    "comment": "ASTM D445, base oils"
+  },
+  {
+    "key": "CH-009",
+    "name": "Pour Point",
+    "comment": "ASTM D97 / ISO 3016"
+  },
+  {
+    "key": "CH-010",
+    "name": "Cloud Point",
+    "comment": "ASTM D2500"
+  },
+  {
+    "key": "CH-011",
+    "name": "CFPP",
+    "comment": "Cold filter plugging point, EN 116"
+  },
+  {
+    "key": "CH-012",
+    "name": "Cetane Index",
+    "comment": "Calculated, ASTM D4737"
+  },
+  {
+    "key": "CH-013",
+    "name": "Cetane Number",
+    "comment": "Engine test, ASTM D613"
+  },
+  {
+    "key": "CH-014",
+    "name": "Water Content",
+    "comment": "ASTM D95 / ISO 3733"
+  },
+  {
+    "key": "CH-015",
+    "name": "Water Content (KF)",
+    "comment": "Karl Fischer, ISO 12937"
+  },
+  {
+    "key": "CH-016",
+    "name": "Total Sediment",
+    "comment": "ISO 10307-1"
+  },
+  {
+    "key": "CH-017",
+    "name": "Ash Content",
+    "comment": "ISO 6245"
+  },
+  {
+    "key": "CH-018",
+    "name": "Vanadium",
+    "comment": "IP 501 / ISO 14597"
+  },
+  {
+    "key": "CH-019",
+    "name": "Sodium",
+    "comment": "IP 501"
+  },
+  {
+    "key": "CH-020",
+    "name": "Aluminium + Silicon",
+    "comment": "ISO 10478 / IP 501"
+  },
+  {
+    "key": "CH-021",
+    "name": "Carbon Residue (MCR)",
+    "comment": "Micro method, ISO 10370"
+  },
+  {
+    "key": "CH-022",
+    "name": "Distillation IBP",
+    "comment": "ASTM D86 initial boiling point"
+  },
+  {
+    "key": "CH-023",
+    "name": "Distillation 10% Recovered",
+    "comment": "ASTM D86"
+  },
+  {
+    "key": "CH-024",
+    "name": "Distillation 50% Recovered",
+    "comment": "ASTM D86"
+  },
+  {
+    "key": "CH-025",
+    "name": "Distillation 90% Recovered",
+    "comment": "ASTM D86"
+  },
+  {
+    "key": "CH-026",
+    "name": "Distillation 95% Recovered",
+    "comment": "ASTM D86"
+  },
+  {
+    "key": "CH-027",
+    "name": "Distillation FBP",
+    "comment": "ASTM D86 final boiling point"
+  },
+  {
+    "key": "CH-028",
+    "name": "Research Octane Number",
+    "comment": "ASTM D2699"
+  },
+  {
+    "key": "CH-029",
+    "name": "Motor Octane Number",
+    "comment": "ASTM D2700"
+  },
+  {
+    "key": "CH-030",
+    "name": "Benzene Content",
+    "comment": "EN 238 / ASTM D3606"
+  },
+  {
+    "key": "CH-031",
+    "name": "Aromatics Content",
+    "comment": "ASTM D1319 / EN 15553"
+  },
+  {
+    "key": "CH-032",
+    "name": "Olefins Content",
+    "comment": "ASTM D1319"
+  },
+  {
+    "key": "CH-033",
+    "name": "Reid Vapour Pressure",
+    "comment": "ASTM D323 / EN 13016"
+  },
+  {
+    "key": "CH-034",
+    "name": "Oxidation Stability",
+    "comment": "EN ISO 12205"
+  },
+  {
+    "key": "CH-035",
+    "name": "Lubricity (HFRR WSD)",
+    "comment": "ISO 12156-1"
+  },
+  {
+    "key": "CH-036",
+    "name": "Copper Strip Corrosion",
+    "comment": "ASTM D130, 3 h @ 50°C"
+  },
+  {
+    "key": "CH-037",
+    "name": "Colour (Saybolt)",
+    "comment": "ASTM D156"
+  },
+  {
+    "key": "CH-038",
+    "name": "Smoke Point",
+    "comment": "ASTM D1322"
+  },
+  {
+    "key": "CH-039",
+    "name": "Freezing Point",
+    "comment": "ASTM D2386 / D7153"
+  },
+  {
+    "key": "CH-040",
+    "name": "Naphthalenes",
+    "comment": "ASTM D1840"
+  },
+  {
+    "key": "CH-041",
+    "name": "Total Acid Number",
+    "comment": "ASTM D664"
+  },
+  {
+    "key": "CH-042",
+    "name": "Salt Content",
+    "comment": "ASTM D3230, crude"
+  },
+  {
+    "key": "CH-043",
+    "name": "BS&W",
+    "comment": "Basic sediment & water, ASTM D4007"
+  },
+  {
+    "key": "CH-044",
+    "name": "Mercaptan Sulphur",
+    "comment": "ASTM D3227"
+  },
+  {
+    "key": "CH-045",
+    "name": "Hydrogen Sulphide",
+    "comment": "IP 570"
+  },
+  {
+    "key": "CH-046",
+    "name": "Nickel",
+    "comment": "IP 501"
+  },
+  {
+    "key": "CH-047",
+    "name": "Asphaltenes",
+    "comment": "IP 143"
+  },
+  {
+    "key": "CH-048",
+    "name": "Penetration @ 25°C",
+    "comment": "EN 1426, bitumen"
+  },
+  {
+    "key": "CH-049",
+    "name": "Softening Point",
+    "comment": "EN 1427, bitumen"
+  },
+  {
+    "key": "CH-050",
+    "name": "Net Specific Energy",
+    "comment": "Calculated, ISO 8217 Annex"
+  }
+]

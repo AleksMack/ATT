@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "seed:characteristics": "tsx scripts/seed-characteristics.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AleksMack/ATT.git"
@@ -19,6 +21,8 @@
   "devDependencies": {
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.6.3",
-    "dotenv": "^18.0.4"
+    "dotenv": "^18.0.4",
+    "exceljs": "^4.4.0",
+    "tsx": "^4.23.15"
   }
 }

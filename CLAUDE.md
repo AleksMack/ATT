@@ -18,7 +18,10 @@ npx playwright test -g "test name"             # single test by title
 npx playwright test --headed / --debug / --ui  # local debugging
 npx playwright show-report                     # open HTML report
 npx playwright show-trace test-results/<...>/trace.zip
+npm run seed:characteristics                   # seed tab 7 of the master data workbook via API
 ```
+
+Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Close the workbook in Excel before running a seed, or the write fails.
 
 ## Configuration and environment
 
@@ -60,7 +63,7 @@ The app (OptiFlow, Angular) has no `data-testid` attributes, so locators rely on
 - **Naming test records:** every record a test creates has a name starting with `AUTO_`, so leftovers are easy to find and clean up.
 - **API helpers:** in `api/`, one file per resource, typed with interfaces taken from the Swagger schema.
 - **Reference data** (dictionaries) is created via the API, not the UI.
-- **Secrets** come only from `.env` and are never printed (not in the console, logs, traces or chat).
+- **Secrets** come only from `.env` and are never printed (not in the console, logs, traces or chat). Never pass an object that holds a secret (cookie, token, request body with a password) to `expect()`: a failed assertion prints the whole value. Map it to names and flags first.
 - **Test names** are in English, in the form `should <expected result> when <condition>`.
 
 ## Language

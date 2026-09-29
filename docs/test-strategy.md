@@ -76,6 +76,11 @@ Rule: if a step is the subject of the test, it is done through the UI. If a step
 ### 5.3 Seed rules
 
 - **Idempotent**: before creating a record, search it by natural key (name, SWIFT, IBAN, IMO, UN/LOCODE). If it exists, reuse it. Running the seed twice must not create duplicates.
+- **If a reference record exists, do not create it.**
+  - **Matching:** load the full list of the resource once (`GET <resource>/list`, page by page up to `totalRecordsCount`), compare the natural key **exactly** in code, and create only the missing records. API list filters are not used for this: they match by substring (for example, `FilterData.Name=Density` returns 8 characteristics).
+  - **No updates:** an existing record is reused as is. The seed does not update it, even if other fields differ from the workbook.
+  - **Where it lives:** every resource client in `api/` has `ensureAll()` (a batch against one loaded list) and `ensure()` (one record) that implement this rule. There is also an API test that calls `ensure()` twice and expects the same record and no new one (first case: `tests/api/master-data/physical-characteristics.spec.ts`).
+- **Test-only records** (for example, a create/read/delete check of a resource) are not master data: they use the `AUTO_` prefix and are deleted at the end of the test.
 - **Dependency order** (a record is created only after the records it references):
 
   1. Countries and currencies (if not predefined in the system)
@@ -230,6 +235,7 @@ Rule: a test is accepted only after a human checked that the assertions match th
 8. Bank statement: import (file format?) or manual creation?
 9. Which documents can be deleted after a run?
 10. Can developers add `data-testid` attributes to key elements?
+11. Characteristic names are limited to 20 characters: longer names are rejected with `errorCode 1 "Name"`. This limit was found by testing and is not in Swagger. 10 of 50 names in tab 7 are longer (for example, `Kinematic Viscosity @ 100°C`, 27 characters). Should they be shortened, and how? Are there similar limits in other tabs?
 
 ## 13. PoC exit criteria
 

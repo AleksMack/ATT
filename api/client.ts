@@ -1,6 +1,5 @@
 import { request, type APIRequestContext, type APIResponse } from '@playwright/test';
-import { requireEnv } from '../utils/env';
-import { API_STATE_FILE } from './auth';
+import { API_STATE_FILE, apiBaseUrl } from './auth';
 
 type Params = Record<string, string | number | boolean>;
 type StorageState = NonNullable<NonNullable<Parameters<typeof request.newContext>[0]>['storageState']>;
@@ -30,9 +29,8 @@ export class ApiClient {
   private constructor(private readonly context: APIRequestContext) {}
 
   static async create(storageState: StorageState = API_STATE_FILE): Promise<ApiClient> {
-    const { API_URL } = requireEnv('API_URL');
     const context = await request.newContext({
-      baseURL: API_URL,
+      baseURL: apiBaseUrl(),
       storageState,
       extraHTTPHeaders: { Accept: 'application/json' },
     });

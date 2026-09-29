@@ -7,7 +7,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Known issues
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
-- No Swagger / OpenAPI spec found; `docs/openapi.json` is missing until the team shares the URL.
+- 10 characteristics in tab 7 (CH-004, 006, 007, 008, 023, 024, 025, 026, 028, 036) are not created: names are longer than 20 characters. Waiting for BA (strategy, open question 11).
+
+## 2026-09-29 — Switch to qa01, add login tests and characteristics seed
+
+### Added
+- `docs/openapi.json`: OpenAPI 3.0.4 spec (`ConceptOil.API`, 994 paths) from `https://qa01-api.ctrm.biz/swagger/v1/swagger.json`.
+- `tests/api/login.spec.ts`: valid login returns `userId` and httpOnly `AccessToken` / `RefreshToken` cookies; an unknown user gets `errorCode` 100002 and no session.
+- Rule in `CLAUDE.md`: never pass objects holding secrets to `expect()`.
+- `api/physicalCharacteristics.ts`: typed client for "Характеристики" (list, listAll, findByName, getById, create, delete) with `ensureAll()` / `ensure()`: load the full list once, compare names exactly, create only the missing records.
+- `data/master/characteristics.json`: CH-001 "Density @ 15°C" from the master data workbook.
+- `tests/api/master-data/physical-characteristics.spec.ts`: `ensure()` does not create a duplicate; create/read/delete of an `AUTO_` record; a name longer than 20 characters is rejected.
+- `scripts/seed-characteristics.ts` (`npm run seed:characteristics`): seeds tab "7. Characteristics" (Characteristic Name -> name, Description -> comment), rewrites `data/master/characteristics.json`, and marks workbook rows green (in the system) or red (not created / error) with a "Seed status" column.
+- `scripts/master-data/workbook.ts`: read a workbook tab by header row, mark rows green / red.
+- Dev dependencies `exceljs` (workbook read/write) and `tsx` (run TypeScript scripts).
+- First seed on qa01: 39 characteristics created (ids 22-60), 1 already existed (CH-001, id 11), 10 rejected because the name is longer than 20 characters.
+- `docs/test-strategy.md`: rule "if a reference record exists, do not create it" (exact match, no updates, `ensure()` per resource) and open question 11 (20-character name limit).
+
+### Changed
+- Test environment switched from ba01 to qa01: `BASE_URL=https://qa01.ctrm.biz`, `API_URL=https://qa01-api.ctrm.biz/api/` (local `.env`).
+- `apiLogin()`: one call `POST login/loginotp` with `{ user, password, oneTimePassword }` as in Swagger (was `checkloginpassword` + `loginotp` with `otpPasswordType`).
+- `apiBaseUrl()` adds a trailing slash to `API_URL`, so relative paths keep the `/api` prefix.
+- `auth.setup.ts`: the dashboard is detected by the "Concept Oil" logo instead of the user's pinned "Трейдинг" button.
+
+### Fixed
+- `apiLogin()` now fails on a non-zero `errorCode`: wrong credentials return HTTP 200 with `errorCode` 100002, which was treated as success.
+
+- `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`: master data workbook (all data, including IBANs, is fictional), with seed status on tab 7.
 
 ## 2026-09-29 — Add test strategy
 
