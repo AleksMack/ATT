@@ -6,7 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Known issues
+- The seed statuses in the workbook are from qa01. uat has almost no reference data (2 characteristics, nothing else), so the next seed runs will create almost everything.
+- 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
+
+## 2026-09-29 — Add shippers, banks, projects and legal forms seed; switch to uat
+
+### Changed
+- Test environment switched from qa01 to uat: `BASE_URL=https://uat.ctrm.biz`, `API_URL=https://uat-api.ctrm.biz/api/`, new user in local `.env`. The uat Swagger is identical to the saved `docs/openapi.json` (994 paths, same schemas). API login, the read-only API tests and UI login pass on uat.
+- `ProjectsApi.listSubprojects()` uses `GET projects/subprojects?FilterData.Id=<parent id>`.
+
+### Added
+- `api/shippers.ts`: typed client for "Грузоотправители" (list, listAll, getById, create, delete, ensureAll).
+- `scripts/seed-shippers.ts` (`npm run seed:shippers`): shippers from tab 5, name = Shipper Name only. A name repeated in the tab (one row per shipper and vessel) is created once; the repeats get "exists" with the same id.
+- `api/geo.ts`: country id by English name; city by exact name, else the first search result, else the first city of the country.
+- `api/banks.ts`: typed client for "Банки"; the natural key is SWIFT/BIC (`ensureAllByKey`).
+- `scripts/seed-banks.ts` (`npm run seed:banks [-- --limit N]`, default 1): banks from tab 2 (names, abbreviation, SWIFT/BIC, INN, street, building, country and city via `GeoApi`). A city that is not matched exactly is noted in the status column.
+- `api/projects.ts`: typed client for "Проекты".
+- `scripts/seed-projects.ts` (`npm run seed:projects [-- --limit N]`, default 1): projects from tab 6 (Project Name (Region) -> name, Project ID -> code, the earliest Start Date among the project's rows -> startDate).
+- `toIsoDate()` in `scripts/master-data/workbook.ts`: Excel date cells as "YYYY-MM-DD".
+- `ProjectsApi.listSubprojects()` (`GET projects/subprojects?FilterData.Id=<parent id>`; subprojects are not in projects/list), `deleteSubproject()` and `ensureAllSubprojects()` (key: parent id + name).
+- `scripts/seed-subprojects.ts` (`npm run seed:subprojects [-- --limit N]`, default 1): subprojects from tab 6 (Subproject Name -> name, Subproject ID -> code, the row's Start Date, parent by Project ID).
+- `api/legalForms.ts`: typed client for "Организационно-правовые формы".
+- `scripts/seed-legal-forms.ts` (`npm run seed:legal-forms [-- --limit N]`, default 1): one legal form per distinct Legal Form (ENG) in tab 1; name = abbreviation = Legal Form (ENG), name_RUS = abbreviation_RUS = Legal Form (RUS). Marks the legal form columns in every counterparty row with that form.
+- Legal form seed on qa01: 14 of 14 (13 created, "S.p.A." already existed from the first check, id 4); no errors.
+- First subproject check on qa01: PRJ-001-01 "United Arab Emirates" created (id 18, parent Middle East Gulf 12).
+- Project seed on qa01: 6 of 6 created (PRJ-001 to PRJ-006, ids 12-17), start date = the earliest Start Date of each project; no errors.
+- Bank seed on qa01: 30 of 30, 29 created, 1 already existed (BNK-001 "Al Noor Bank", id 5); no errors. 10 cities not matched exactly: 4 took the closest search result (Sharjah -> "Sharjah city", Navoi -> "Navoiy City"), 6 took the first city of the country (Ras Al Khaimah -> Abu Dhabi, Port Harcourt -> Aba, Zhoushan -> "`Aqqan", Samarkand -> Almalyk).
+- Shipper seed on qa01: 50 rows, 32 distinct names; 31 created, 1 already existed ("Zhoushan Haitong Storage Co., Ltd.", id 4); no errors.
 
 ## 2026-09-29 — Add products and subproducts seed
 

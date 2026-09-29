@@ -1,0 +1,50 @@
+[
+  {
+    "key": "PRJ-001",
+    "request": {
+      "name": "Middle East Gulf",
+      "code": "PRJ-001",
+      "startDate": "2026-05-15"
+    }
+  },
+  {
+    "key": "PRJ-002",
+    "request": {
+      "name": "West Africa",
+      "code": "PRJ-002",
+      "startDate": "2025-06-15"
+    }
+  },
+  {
+    "key": "PRJ-003",
+    "request": {
+      "name": "East Asia",
+      "code": "PRJ-003",
+      "startDate": "2025-06-22"
+    }
+  },
+  {
+    "key": "PRJ-004",
+    "request": {
+      "name": "Central Asia",
+      "code": "PRJ-004",
+      "startDate": "2025-01-26"
+    }
+  },
+  {
+    "key": "PRJ-005",
+    "request": {
+      "name": "South America",
+      "code": "PRJ-005",
+      "startDate": "2025-03-13"
+    }
+  },
+  {
+    "key": "PRJ-006",
+    "request": {
+      "name": "Mediterranean",
+      "code": "PRJ-006",
+      "startDate": "2025-06-19"
+    }
+  }
+]

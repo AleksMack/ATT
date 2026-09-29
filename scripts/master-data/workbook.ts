@@ -99,6 +99,16 @@ export async function markRows(
 }
 
 /**
+ * A date cell as "YYYY-MM-DD" (local date). readSheet() returns Excel dates as
+ * Date.toString() text, e.g. "Thu Jan 28 2027 01:00:00 GMT+0100 (...)". Empty if not a date.
+ */
+export function toIsoDate(text: string): string {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(text)) return text;
+  const date = new Date(text);
+  return Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('sv-SE');
+}
+
+/**
  * Fails if the workbook cannot be written (usually: open in Excel). Seed scripts call it
  * before any API call, so a run never creates records it then cannot report in the workbook.
  */

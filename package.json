@@ -6,7 +6,12 @@
   "scripts": {
     "seed:characteristics": "tsx scripts/seed-characteristics.ts",
     "seed:products": "tsx scripts/seed-products.ts",
-    "seed:subproducts": "tsx scripts/seed-subproducts.ts"
+    "seed:subproducts": "tsx scripts/seed-subproducts.ts",
+    "seed:shippers": "tsx scripts/seed-shippers.ts",
+    "seed:banks": "tsx scripts/seed-banks.ts",
+    "seed:projects": "tsx scripts/seed-projects.ts",
+    "seed:subprojects": "tsx scripts/seed-subprojects.ts",
+    "seed:legal-forms": "tsx scripts/seed-legal-forms.ts"
   },
   "repository": {
     "type": "git",

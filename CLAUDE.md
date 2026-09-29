@@ -21,6 +21,11 @@ npx playwright show-trace test-results/<...>/trace.zip
 npm run seed:characteristics                   # seed tab 7 of the master data workbook via API
 npm run seed:products [-- --limit N]           # seed products from tab 8 (default: all)
 npm run seed:subproducts [-- --limit N]        # seed subproducts from tab 9 (default: first only)
+npm run seed:shippers [-- --limit N]           # seed shippers from tab 5 (name only; default: all)
+npm run seed:banks [-- --limit N]              # seed banks from tab 2 (key: SWIFT/BIC; default: first only)
+npm run seed:projects [-- --limit N]           # seed projects from tab 6 (default: first only)
+npm run seed:subprojects [-- --limit N]        # seed subprojects from tab 6 (default: first only)
+npm run seed:legal-forms [-- --limit N]        # seed legal forms from tab 1 (default: first only)
 ```
 
 Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Each run first clears the marks of its tab, so the colors show only that run. Characteristic links go by Characteristic ID through tab 7 (`scripts/master-data/characteristicLinks.ts`). Order: characteristics, then products, then subproducts. Close the workbook in Excel before running a seed, or the write fails.
@@ -39,7 +44,7 @@ Three projects with distinct directories:
 2. **`ui`** — `tests/ui/`, depends on `setup`, Desktop Chrome at 1600x900. It uses the saved `storageState` **only if the file already exists when the config is loaded**, so on a fresh checkout the first run's UI tests start unauthenticated. Run `--project=setup` first, or restructure if that becomes a problem.
 3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup`: API tests log in with `apiLogin()` (`POST login/checkloginpassword`, then `POST login/loginotp` with `otpPasswordType: false`) and use `ApiClient`. Trace is off for this project because it would record the login request body.
 
-   API facts (see `docs/discovery.md`): no Swagger has been found; the API is on the same origin as the UI with no `/api` prefix (`API_URL` should be `https://ba01.ctrm.biz`). Every response is wrapped as `{ data, error: { errorCode } }` (0 = success; `ApiClient.getData()`/`postData()` unwrap it). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (`data` is `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
+   API facts: the test environment is **uat** (`BASE_URL=https://uat.ctrm.biz`, `API_URL=https://uat-api.ctrm.biz/api/`); Swagger is at `https://uat-api.ctrm.biz/swagger/v1/swagger.json` and saved as `docs/openapi.json` (`docs/discovery.md` describes the older ba01 stand). Several failed logins lock the user name (`errorCode` 100009), so never retry a failed login in a loop. Every response is wrapped as `{ data, error: { errorCode } }` (0 = success; `ApiClient.getData()`/`postData()` unwrap it). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (`data` is `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
 
 Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because tests share data on one test environment. Keep tests independent of order anyway, but don't assume isolation between them. Timeouts are generous (60s test, 15s action, 30s navigation) because the CRM is slow. Trace, screenshot and video are kept only for failed tests.
 

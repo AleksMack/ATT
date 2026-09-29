@@ -1,0 +1,86 @@
+[
+  {
+    "name": "S.p.A.",
+    "abbreviation": "S.p.A.",
+    "name_RUS": "С.п.А.",
+    "abbreviation_RUS": "С.п.А."
+  },
+  {
+    "name": "Co., Ltd.",
+    "abbreviation": "Co., Ltd.",
+    "name_RUS": "Ко., Лтд.",
+    "abbreviation_RUS": "Ко., Лтд."
+  },
+  {
+    "name": "DMCC",
+    "abbreviation": "DMCC",
+    "name_RUS": "ДМСС",
+    "abbreviation_RUS": "ДМСС"
+  },
+  {
+    "name": "S.A.",
+    "abbreviation": "S.A.",
+    "name_RUS": "С.А.",
+    "abbreviation_RUS": "С.А."
+  },
+  {
+    "name": "JV (QK)",
+    "abbreviation": "JV (QK)",
+    "name_RUS": "СП (КК)",
+    "abbreviation_RUS": "СП (КК)"
+  },
+  {
+    "name": "Ltd",
+    "abbreviation": "Ltd",
+    "name_RUS": "Лтд",
+    "abbreviation_RUS": "Лтд"
+  },
+  {
+    "name": "LLC (MChJ)",
+    "abbreviation": "LLC (MChJ)",
+    "name_RUS": "ООО (МЧЖ)",
+    "abbreviation_RUS": "ООО (МЧЖ)"
+  },
+  {
+    "name": "Ltda.",
+    "abbreviation": "Ltda.",
+    "name_RUS": "Лтда.",
+    "abbreviation_RUS": "Лтда."
+  },
+  {
+    "name": "FZE",
+    "abbreviation": "FZE",
+    "name_RUS": "ФЗЕ",
+    "abbreviation_RUS": "ФЗЕ"
+  },
+  {
+    "name": "PLC",
+    "abbreviation": "PLC",
+    "name_RUS": "ПЛС",
+    "abbreviation_RUS": "ПЛС"
+  },
+  {
+    "name": "FZCO",
+    "abbreviation": "FZCO",
+    "name_RUS": "ФЗКО",
+    "abbreviation_RUS": "ФЗКО"
+  },
+  {
+    "name": "JSC (AJ)",
+    "abbreviation": "JSC (AJ)",
+    "name_RUS": "АО (АЖ)",
+    "abbreviation_RUS": "АО (АЖ)"
+  },
+  {
+    "name": "LLC",
+    "abbreviation": "LLC",
+    "name_RUS": "ЛЛС",
+    "abbreviation_RUS": "ЛЛС"
+  },
+  {
+    "name": "S.r.l.",
+    "abbreviation": "S.r.l.",
+    "name_RUS": "С.р.л.",
+    "abbreviation_RUS": "С.р.л."
+  }
+]
