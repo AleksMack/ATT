@@ -46,6 +46,12 @@ export default defineConfig({
       name: 'setup',
       testDir: './tests/setup',
       testMatch: /.*\.setup\.ts/,
+      use: {
+        // Traces record fill() values and videos show the OTP field,
+        // so keep only the failure screenshot (password field is masked)
+        trace: 'off',
+        video: 'off',
+      },
     },
 
     // 2. UI e2e tests

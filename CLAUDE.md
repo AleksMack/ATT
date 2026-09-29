@@ -22,13 +22,15 @@ npx playwright show-trace test-results/<...>/trace.zip
 
 ## Configuration and environment
 
-- `.env` (loaded via `dotenv/config` in `playwright.config.ts`) supplies `BASE_URL` (UI), `API_URL` (API project baseURL), `USER_LOGIN`, `USER_PASSWORD`. Keys are listed in `.env.example`. Do not read or modify `.env`.
+- `.env` (loaded via `dotenv/config` in `playwright.config.ts`) supplies `BASE_URL` (UI), `API_URL` (API project baseURL), `USER_LOGIN`, `USER_PASSWORD`, `USER_OTP`. Keys are listed in `.env.example`. Do not read or modify `.env`.
 
 ## Architecture (playwright.config.ts)
 
 Three projects with distinct directories:
 
-1. **`setup`** — `tests/setup/*.setup.ts`. Logs in once and saves session state to `playwright/.auth/user.json` (exported as `AUTH_FILE` from the config; gitignored).
+1. **`setup`** — `tests/setup/*.setup.ts`. `auth.setup.ts` logs in once and saves session state to `playwright/.auth/user.json` (exported as `AUTH_FILE` from the config; gitignored). Trace and video are off for this project because they would record the password and OTP.
+
+   Login is three screens: Login + Password → "Next"; "Select verification method" → "Use OTP from the app"; "OTP password" → "Login"; then the app lands on `/dashboard`. The test stand accepts a fixed OTP (`USER_OTP`). The first click on the verification method is sometimes ignored while the screen is still switching, so it is retried with `toPass()`.
 2. **`ui`** — `tests/ui/`, depends on `setup`, Desktop Chrome at 1600x900. It uses the saved `storageState` **only if the file already exists when the config is loaded**, so on a fresh checkout the first run's UI tests start unauthenticated. Run `--project=setup` first, or restructure if that becomes a problem.
 3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup`.
 
@@ -42,7 +44,15 @@ Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because
 
 - `specs/` — Markdown test plans written by the planner agent
 
-There is no `auth.setup.ts` yet.
+The app (OptiFlow, Angular) has no `data-testid` attributes, so locators rely on roles and accessible names. The UI is in Russian (e.g. main menu buttons "Трейдинг", "Финансы", "Логистика"), and menu button names include counters ("Трейдинг 3"), so match them with a regex.
+
+## Language
+
+All documents and files in this repository are written in English: code, comments, test names, test plans in `specs/`, `CHANGELOG.md`, `CLAUDE.md` and commit messages. This applies even when the user writes in Russian; only chat replies follow the user's language. The one exception is UI text copied from the app into locators and assertions, which must match the app exactly.
+
+## Changelog
+
+Update `CHANGELOG.md` on every iteration that changes the project: add entries to the "Unreleased" section (in English, grouped as Added / Changed / Removed / Fixed / Known issues). When committing, move the finished entries into a new section headed `## YYYY-MM-DD — <commit message>` (a commit cannot contain its own hash); open issues stay under Unreleased.
 
 ## AI tooling (Playwright MCP + Test Agents)
 
