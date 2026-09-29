@@ -32,7 +32,9 @@ Three projects with distinct directories:
 
    Login is three screens: Login + Password → "Next"; "Select verification method" → "Use OTP from the app"; "OTP password" → "Login"; then the app lands on `/dashboard`. The test stand accepts a fixed OTP (`USER_OTP`). The first click on the verification method is sometimes ignored while the screen is still switching, so it is retried with `toPass()`.
 2. **`ui`** — `tests/ui/`, depends on `setup`, Desktop Chrome at 1600x900. It uses the saved `storageState` **only if the file already exists when the config is loaded**, so on a fresh checkout the first run's UI tests start unauthenticated. Run `--project=setup` first, or restructure if that becomes a problem.
-3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup`.
+3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup` yet.
+
+   API facts (see `docs/discovery.md`): no Swagger has been found; the API is on the same origin as the UI with no `/api` prefix (`API_URL` should be `https://ba01.ctrm.biz`). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (returns `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
 
 Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because tests share data on one test environment. Keep tests independent of order anyway, but don't assume isolation between them. Timeouts are generous (60s test, 15s action, 30s navigation) because the CRM is slow. Trace, screenshot and video are kept only for failed tests.
 
@@ -44,6 +46,7 @@ Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because
 - `api/` — typed API helpers, one file per resource (not created yet)
 
 - `specs/` — Markdown test plans written by the planner agent
+- `docs/` — project notes; `docs/discovery.md` has the API resource map, auth details, menu structure and PoC candidates
 
 The app (OptiFlow, Angular) has no `data-testid` attributes, so locators rely on roles and accessible names. The UI is in Russian (e.g. main menu buttons "Трейдинг", "Финансы", "Логистика"), and menu button names include counters ("Трейдинг 3"), so match them with a regex.
 

@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Known issues
 - `.env` still uses the old key names (`TEST_USER_EMAIL`, `TEST_USER_PASSWORD`, `TEST_USER_OTP`, `API_BASE_URL`), while the config expects `USER_LOGIN`, `USER_PASSWORD`, `USER_OTP`, `API_URL`. Until they are renamed, the `setup` project fails with "Missing keys in .env".
+- `API_BASE_URL` in `.env` points to `http://localhost:3000/api`, where nothing runs; `API_URL` should be `https://ba01.ctrm.biz`.
+- No Swagger / OpenAPI spec found; `docs/openapi.json` is missing until the team shares the URL.
+
+## 2026-09-29 — Add discovery notes
+
+### Added
+- `docs/discovery.md`: Swagger search results (not found), API resources by module with reference data marked, API authentication (httpOnly cookies, server-side refresh, UI session reusable for API), main menu and key screens, three PoC scenario candidates and open questions.
+- API facts and the `docs/` folder in `CLAUDE.md`.
 
 ## 2026-09-29 — Add conventions to CLAUDE.md
 
