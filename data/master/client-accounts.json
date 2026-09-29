@@ -1,0 +1,911 @@
+[
+  {
+    "key": "ACC-0001",
+    "counterpartyId": "CP-001",
+    "bankId": "BNK-030",
+    "accountNumber": "06352 42652 987954785452",
+    "iban": "IT82B0635242652987954785452",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0002",
+    "counterpartyId": "CP-001",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 57431 672341278444",
+    "iban": "IT14M0988457431672341278444",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0003",
+    "counterpartyId": "CP-002",
+    "bankId": "BNK-027",
+    "accountNumber": "05882 07781 136938714252",
+    "iban": "IT27M0588207781136938714252",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0004",
+    "counterpartyId": "CP-002",
+    "bankId": "BNK-026",
+    "accountNumber": "08428 00291 861946248678",
+    "iban": "IT15Q0842800291861946248678",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0005",
+    "counterpartyId": "CP-003",
+    "bankId": "BNK-013",
+    "accountNumber": "3627669233913147915",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0006",
+    "counterpartyId": "CP-003",
+    "bankId": "BNK-014",
+    "accountNumber": "2638240822624704558",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0007",
+    "counterpartyId": "CP-004",
+    "bankId": "BNK-001",
+    "accountNumber": "9245594206942342",
+    "iban": "AE129859245594206942342",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0008",
+    "counterpartyId": "CP-004",
+    "bankId": "BNK-001",
+    "accountNumber": "1646712263789339",
+    "iban": "AE729851646712263789339",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0009",
+    "counterpartyId": "CP-004",
+    "bankId": "BNK-003",
+    "accountNumber": "8655310715782119",
+    "iban": "AE081668655310715782119",
+    "currency": "EUR",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0010",
+    "counterpartyId": "CP-005",
+    "bankId": "BNK-022",
+    "accountNumber": "13860-358287427-7",
+    "iban": "BR7650642116138603582874277C1",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0011",
+    "counterpartyId": "CP-005",
+    "bankId": "BNK-024",
+    "accountNumber": "41820-442759350-9",
+    "iban": "BR4235170860418204427593509C1",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0012",
+    "counterpartyId": "CP-006",
+    "bankId": "BNK-018",
+    "accountNumber": "20208000623905768787",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0013",
+    "counterpartyId": "CP-007",
+    "bankId": "BNK-027",
+    "accountNumber": "05882 63700 604385902687",
+    "iban": "IT11M0588263700604385902687",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0014",
+    "counterpartyId": "CP-007",
+    "bankId": "BNK-026",
+    "accountNumber": "08428 92241 057498545903",
+    "iban": "IT50I0842892241057498545903",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0015",
+    "counterpartyId": "CP-007",
+    "bankId": "BNK-027",
+    "accountNumber": "05882 66166 473563744093",
+    "iban": "IT75Z0588266166473563744093",
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0016",
+    "counterpartyId": "CP-008",
+    "bankId": "BNK-012",
+    "accountNumber": "8112081364184174982",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0017",
+    "counterpartyId": "CP-008",
+    "bankId": "BNK-011",
+    "accountNumber": "6846038423222947218",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0018",
+    "counterpartyId": "CP-008",
+    "bankId": "BNK-011",
+    "accountNumber": "5803466256916619460",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0019",
+    "counterpartyId": "CP-009",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 31072 777588381939",
+    "iban": "IT80Z0988431072777588381939",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0020",
+    "counterpartyId": "CP-010",
+    "bankId": "BNK-004",
+    "accountNumber": "8924936645062480",
+    "iban": "AE161228924936645062480",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0021",
+    "counterpartyId": "CP-010",
+    "bankId": "BNK-003",
+    "accountNumber": "1583054885506922",
+    "iban": "AE181661583054885506922",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0022",
+    "counterpartyId": "CP-011",
+    "bankId": "BNK-010",
+    "accountNumber": "1915252688",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0023",
+    "counterpartyId": "CP-012",
+    "bankId": "BNK-016",
+    "accountNumber": "20208000352628110716",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0024",
+    "counterpartyId": "CP-012",
+    "bankId": "BNK-019",
+    "accountNumber": "20208400614759026620",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0025",
+    "counterpartyId": "CP-013",
+    "bankId": "BNK-011",
+    "accountNumber": "1175041473380160500",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0026",
+    "counterpartyId": "CP-013",
+    "bankId": "BNK-013",
+    "accountNumber": "1613617519176089784",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0027",
+    "counterpartyId": "CP-013",
+    "bankId": "BNK-014",
+    "accountNumber": "4872042727514947206",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0028",
+    "counterpartyId": "CP-014",
+    "bankId": "BNK-024",
+    "accountNumber": "51533-167873846-5",
+    "iban": "BR0535170860515331678738465CA",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0029",
+    "counterpartyId": "CP-014",
+    "bankId": "BNK-024",
+    "accountNumber": "85939-201845544-1",
+    "iban": "BR7635170860859392018455441C1",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0030",
+    "counterpartyId": "CP-015",
+    "bankId": "BNK-009",
+    "accountNumber": "0878733621",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0031",
+    "counterpartyId": "CP-015",
+    "bankId": "BNK-009",
+    "accountNumber": "5668695585",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0032",
+    "counterpartyId": "CP-016",
+    "bankId": "BNK-030",
+    "accountNumber": "06352 78930 490208741533",
+    "iban": "IT84C0635278930490208741533",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0033",
+    "counterpartyId": "CP-016",
+    "bankId": "BNK-027",
+    "accountNumber": "05882 49778 104044822283",
+    "iban": "IT09L0588249778104044822283",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0034",
+    "counterpartyId": "CP-016",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 71602 929813358482",
+    "iban": "IT92R0988471602929813358482",
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0035",
+    "counterpartyId": "CP-017",
+    "bankId": "BNK-007",
+    "accountNumber": "2476008237",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0036",
+    "counterpartyId": "CP-018",
+    "bankId": "BNK-003",
+    "accountNumber": "1954334464666838",
+    "iban": "AE191661954334464666838",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0037",
+    "counterpartyId": "CP-018",
+    "bankId": "BNK-004",
+    "accountNumber": "4218885922351596",
+    "iban": "AE321224218885922351596",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0038",
+    "counterpartyId": "CP-019",
+    "bankId": "BNK-009",
+    "accountNumber": "7848768010",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0039",
+    "counterpartyId": "CP-020",
+    "bankId": "BNK-018",
+    "accountNumber": "20208000124836466941",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0040",
+    "counterpartyId": "CP-020",
+    "bankId": "BNK-017",
+    "accountNumber": "20208400632757060484",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0041",
+    "counterpartyId": "CP-020",
+    "bankId": "BNK-017",
+    "accountNumber": "20208978415107914869",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0042",
+    "counterpartyId": "CP-021",
+    "bankId": "BNK-014",
+    "accountNumber": "6634877315207119833",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0043",
+    "counterpartyId": "CP-021",
+    "bankId": "BNK-011",
+    "accountNumber": "2882377097987257905",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0044",
+    "counterpartyId": "CP-022",
+    "bankId": "BNK-009",
+    "accountNumber": "1688156712",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0045",
+    "counterpartyId": "CP-022",
+    "bankId": "BNK-009",
+    "accountNumber": "8724491390",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0046",
+    "counterpartyId": "CP-022",
+    "bankId": "BNK-006",
+    "accountNumber": "2458499879",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0047",
+    "counterpartyId": "CP-023",
+    "bankId": "BNK-019",
+    "accountNumber": "20208000523245469422",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0048",
+    "counterpartyId": "CP-023",
+    "bankId": "BNK-017",
+    "accountNumber": "20208400998104474191",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0049",
+    "counterpartyId": "CP-024",
+    "bankId": "BNK-010",
+    "accountNumber": "1173777569",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0050",
+    "counterpartyId": "CP-024",
+    "bankId": "BNK-007",
+    "accountNumber": "4241696731",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0051",
+    "counterpartyId": "CP-024",
+    "bankId": "BNK-007",
+    "accountNumber": "0335718116",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0052",
+    "counterpartyId": "CP-025",
+    "bankId": "BNK-012",
+    "accountNumber": "6876618009081093947",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0053",
+    "counterpartyId": "CP-025",
+    "bankId": "BNK-012",
+    "accountNumber": "8026504684140921463",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0054",
+    "counterpartyId": "CP-025",
+    "bankId": "BNK-015",
+    "accountNumber": "6810262841531606863",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0055",
+    "counterpartyId": "CP-026",
+    "bankId": "BNK-001",
+    "accountNumber": "4061599976357096",
+    "iban": "AE859854061599976357096",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0056",
+    "counterpartyId": "CP-026",
+    "bankId": "BNK-004",
+    "accountNumber": "6680454965262919",
+    "iban": "AE441226680454965262919",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0057",
+    "counterpartyId": "CP-027",
+    "bankId": "BNK-004",
+    "accountNumber": "5174041068856460",
+    "iban": "AE751225174041068856460",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0058",
+    "counterpartyId": "CP-028",
+    "bankId": "BNK-019",
+    "accountNumber": "20208000138562371037",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0059",
+    "counterpartyId": "CP-028",
+    "bankId": "BNK-020",
+    "accountNumber": "20208400801168594427",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0060",
+    "counterpartyId": "CP-029",
+    "bankId": "BNK-019",
+    "accountNumber": "20208000708719333510",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0061",
+    "counterpartyId": "CP-030",
+    "bankId": "BNK-001",
+    "accountNumber": "0540847867376818",
+    "iban": "AE969850540847867376818",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0062",
+    "counterpartyId": "CP-030",
+    "bankId": "BNK-001",
+    "accountNumber": "2948049916637837",
+    "iban": "AE749852948049916637837",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0063",
+    "counterpartyId": "CP-031",
+    "bankId": "BNK-004",
+    "accountNumber": "4946834207485078",
+    "iban": "AE781224946834207485078",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0064",
+    "counterpartyId": "CP-032",
+    "bankId": "BNK-025",
+    "accountNumber": "44036-944836494-4",
+    "iban": "BR1746563251440369448364944CA",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0065",
+    "counterpartyId": "CP-032",
+    "bankId": "BNK-025",
+    "accountNumber": "22137-106999449-9",
+    "iban": "BR9046563251221371069994499C1",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0066",
+    "counterpartyId": "CP-033",
+    "bankId": "BNK-007",
+    "accountNumber": "0103179013",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0067",
+    "counterpartyId": "CP-034",
+    "bankId": "BNK-023",
+    "accountNumber": "86456-092051427-4",
+    "iban": "BR9254271237864560920514274C1",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0068",
+    "counterpartyId": "CP-034",
+    "bankId": "BNK-022",
+    "accountNumber": "77506-555963854-8",
+    "iban": "BR8350642116775065559638548CA",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0069",
+    "counterpartyId": "CP-035",
+    "bankId": "BNK-014",
+    "accountNumber": "0758942221582730766",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0070",
+    "counterpartyId": "CP-036",
+    "bankId": "BNK-012",
+    "accountNumber": "8511728202095178129",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0071",
+    "counterpartyId": "CP-036",
+    "bankId": "BNK-013",
+    "accountNumber": "6630723950740004153",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0072",
+    "counterpartyId": "CP-037",
+    "bankId": "BNK-028",
+    "accountNumber": "08694 22305 965700668065",
+    "iban": "IT87K0869422305965700668065",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0073",
+    "counterpartyId": "CP-037",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 21538 083980594500",
+    "iban": "IT68T0988421538083980594500",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0074",
+    "counterpartyId": "CP-037",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 39420 775371158134",
+    "iban": "IT98R0988439420775371158134",
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0075",
+    "counterpartyId": "CP-038",
+    "bankId": "BNK-018",
+    "accountNumber": "20208000589050183807",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0076",
+    "counterpartyId": "CP-038",
+    "bankId": "BNK-018",
+    "accountNumber": "20208400861829737237",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0077",
+    "counterpartyId": "CP-039",
+    "bankId": "BNK-011",
+    "accountNumber": "1318870140973094404",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0078",
+    "counterpartyId": "CP-039",
+    "bankId": "BNK-012",
+    "accountNumber": "6991899183491474006",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0079",
+    "counterpartyId": "CP-040",
+    "bankId": "BNK-011",
+    "accountNumber": "9216581125124770334",
+    "iban": null,
+    "currency": "CNY",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0080",
+    "counterpartyId": "CP-041",
+    "bankId": "BNK-020",
+    "accountNumber": "20208000367723700518",
+    "iban": null,
+    "currency": "UZS",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0081",
+    "counterpartyId": "CP-041",
+    "bankId": "BNK-020",
+    "accountNumber": "20208400257976059436",
+    "iban": null,
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0082",
+    "counterpartyId": "CP-041",
+    "bankId": "BNK-018",
+    "accountNumber": "20208978628800572051",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0083",
+    "counterpartyId": "CP-042",
+    "bankId": "BNK-003",
+    "accountNumber": "2588875280313235",
+    "iban": "AE901662588875280313235",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0084",
+    "counterpartyId": "CP-042",
+    "bankId": "BNK-005",
+    "accountNumber": "5452043097243836",
+    "iban": "AE816005452043097243836",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0085",
+    "counterpartyId": "CP-042",
+    "bankId": "BNK-005",
+    "accountNumber": "5021413190264968",
+    "iban": "AE586005021413190264968",
+    "currency": "EUR",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0086",
+    "counterpartyId": "CP-043",
+    "bankId": "BNK-021",
+    "accountNumber": "43730-942164934-3",
+    "iban": "BR3027466900437309421649343C1",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0087",
+    "counterpartyId": "CP-044",
+    "bankId": "BNK-022",
+    "accountNumber": "29149-890989623-2",
+    "iban": "BR4050642116291498909896232C1",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0088",
+    "counterpartyId": "CP-044",
+    "bankId": "BNK-024",
+    "accountNumber": "30340-628785128-6",
+    "iban": "BR6635170860303406287851286C1",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0089",
+    "counterpartyId": "CP-045",
+    "bankId": "BNK-007",
+    "accountNumber": "4776728297",
+    "iban": null,
+    "currency": "NGN",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0090",
+    "counterpartyId": "CP-045",
+    "bankId": "BNK-009",
+    "accountNumber": "4653069846",
+    "iban": null,
+    "currency": "USD",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0091",
+    "counterpartyId": "CP-045",
+    "bankId": "BNK-008",
+    "accountNumber": "7501819646",
+    "iban": null,
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0092",
+    "counterpartyId": "CP-046",
+    "bankId": "BNK-030",
+    "accountNumber": "06352 98539 609886675427",
+    "iban": "IT41L0635298539609886675427",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0093",
+    "counterpartyId": "CP-046",
+    "bankId": "BNK-029",
+    "accountNumber": "09884 29211 568196295029",
+    "iban": "IT70X0988429211568196295029",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0094",
+    "counterpartyId": "CP-047",
+    "bankId": "BNK-023",
+    "accountNumber": "46623-055151883-2",
+    "iban": "BR8454271237466230551518832CA",
+    "currency": "BRL",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0095",
+    "counterpartyId": "CP-047",
+    "bankId": "BNK-024",
+    "accountNumber": "52013-046345430-6",
+    "iban": "BR6335170860520130463454306CA",
+    "currency": "USD",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0096",
+    "counterpartyId": "CP-047",
+    "bankId": "BNK-022",
+    "accountNumber": "74191-470542489-0",
+    "iban": "BR4150642116741914705424890C1",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0097",
+    "counterpartyId": "CP-048",
+    "bankId": "BNK-023",
+    "accountNumber": "65467-222948336-4",
+    "iban": "BR5754271237654672229483364CA",
+    "currency": "BRL",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0098",
+    "counterpartyId": "CP-049",
+    "bankId": "BNK-027",
+    "accountNumber": "05882 52441 619595804051",
+    "iban": "IT85Q0588252441619595804051",
+    "currency": "EUR",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0099",
+    "counterpartyId": "CP-049",
+    "bankId": "BNK-026",
+    "accountNumber": "08428 85865 075781247137",
+    "iban": "IT62V0842885865075781247137",
+    "currency": "USD",
+    "status": "Blocked"
+  },
+  {
+    "key": "ACC-0100",
+    "counterpartyId": "CP-050",
+    "bankId": "BNK-004",
+    "accountNumber": "6494875726553043",
+    "iban": "AE811226494875726553043",
+    "currency": "AED",
+    "status": "Active"
+  },
+  {
+    "key": "ACC-0101",
+    "counterpartyId": "CP-050",
+    "bankId": "BNK-001",
+    "accountNumber": "4712970435440687",
+    "iban": "AE709854712970435440687",
+    "currency": "USD",
+    "status": "Blocked"
+  }
+]

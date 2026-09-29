@@ -225,18 +225,7 @@ Rule: a test is accepted only after a human checked that the assertions match th
 
 ## 12. Open questions
 
-1. Users tab (17) is empty, but Project Links reference `USR-xxx` and Projects have an empty Lead column. Which users/roles exist on the test environment?
-2. Currencies and countries: predefined in the system, or must be seeded?
-3. Platts symbols are marked "from memory, verify". Are quotations needed for the first flow?
-4. Does the API support create/search for every master data tab? Which tabs are UI-only?
-5. Rounding and precision rules for money, volume (bbl / MT / m3) and unit cost.
-6. "Other costs" in batch cost: which cost types are included?
-7. Invoice status after payment: full, partial, overpayment rules.
-8. Bank statement: import (file format?) or manual creation?
-9. Which documents can be deleted after a run?
-10. Can developers add `data-testid` attributes to key elements?
-11. *(Resolved 2026-09-29: BA shortened the 10 names in tab 7, marked in blue font; tab 9 is linked by Characteristic ID.)* Characteristic names are limited to 20 characters: longer names are rejected with `errorCode 1 "Name"`. This limit was found by testing and is not in Swagger. 10 of 50 names in tab 7 are longer (for example, `Kinematic Viscosity @ 100°C`, 27 characters). Should they be shortened, and how? Are there similar limits in other tabs?
-12. *(Resolved 2026-09-29: every product now has CH-000 "Density" in tab 8.)* A product needs at least one characteristic (`errorCode 8`), but tab 9 has none for PRD-09 to PRD-14 (LPG, Kerosene, Base Oils, Marine Fuels, Gas Condensate, Petroleum Coke). Which characteristics should they have?
+All open questions (master data, API, business rules, environment) are tracked in one place: [`docs/open-questions.md`](open-questions.md). The questions that were listed here are Q-07, Q-08, Q-14 to Q-21 there; the resolved ones are R-02, R-03 and R-07.
 
 ## 13. PoC exit criteria
 

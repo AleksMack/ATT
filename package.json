@@ -11,7 +11,13 @@
     "seed:banks": "tsx scripts/seed-banks.ts",
     "seed:projects": "tsx scripts/seed-projects.ts",
     "seed:subprojects": "tsx scripts/seed-subprojects.ts",
-    "seed:legal-forms": "tsx scripts/seed-legal-forms.ts"
+    "seed:legal-forms": "tsx scripts/seed-legal-forms.ts",
+    "seed:clear": "tsx scripts/clear-seed-marks.ts",
+    "seed:all": "npm run seed:clear && npm run seed:characteristics && npm run seed:products -- --limit 100000 && npm run seed:subproducts -- --limit 100000 && npm run seed:escalations -- --limit 100000 && npm run seed:shippers -- --limit 100000 && npm run seed:banks -- --limit 100000 && npm run seed:legal-forms -- --limit 100000 && npm run seed:clients -- --limit 100000 && npm run seed:client-accounts -- --limit 100000 && npm run seed:vessels -- --limit 100000 && npm run seed:projects -- --limit 100000 && npm run seed:subprojects -- --limit 100000",
+    "seed:clients": "tsx scripts/seed-clients.ts",
+    "seed:client-accounts": "tsx scripts/seed-client-accounts.ts",
+    "seed:vessels": "tsx scripts/seed-vessels.ts",
+    "seed:escalations": "tsx scripts/seed-escalations.ts"
   },
   "repository": {
     "type": "git",

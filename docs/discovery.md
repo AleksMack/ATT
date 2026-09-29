@@ -199,11 +199,7 @@ All three follow the conventions:
 
 ## Open questions
 
-1. What is the Swagger URL, and is it enabled on this stand? Without it, API interfaces have to be inferred from responses.
-2. Are the `USER_LOGIN` user's rights enough to create and delete invoices, deals and dictionary records? Does it need approval rights for scenario B?
-3. What are the rounding rules for amounts and the source of the exchange rate: system or market rates, and which date?
-4. Is the stand shared? Other users' data is visible (existing deals and invoices), so tests must use `AUTO_` names and never touch other records.
-5. Can developers add `data-testid` or `aria-label` attributes to the header icons and key form fields?
+Moved to [`docs/open-questions.md`](open-questions.md) (Q-15, Q-17, Q-23, Q-24; the Swagger question is resolved as R-01).
 
 ## Method
 

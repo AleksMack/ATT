@@ -1,0 +1,452 @@
+[
+  {
+    "key": "ESC-001",
+    "name": "Density de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 850 – 862 kg/m³; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-002",
+    "name": "Sulphur penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 2.00 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-003",
+    "name": "Water & sediment deduction",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-043",
+    "characteristicName": "BS&W",
+    "comment": "Spec: max 0.5 % v/v; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-004",
+    "name": "Low-sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.45 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-005",
+    "name": "TAN rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-041",
+    "characteristicName": "Total Acid Number",
+    "comment": "Spec: max 0.50 mg KOH/g; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-006",
+    "name": "Sulphur de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.15 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-007",
+    "name": "Mercaptan penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-044",
+    "characteristicName": "Mercaptan Sulphur",
+    "comment": "Spec: max 30 mg/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-008",
+    "name": "API gravity escalation",
+    "type": "Premium",
+    "direction": "Above",
+    "characteristicId": "CH-002",
+    "characteristicName": "API Gravity",
+    "comment": "Spec: 39.5 – 40.5 °API; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-009",
+    "name": "API gravity de-escalation",
+    "type": "Penalty",
+    "direction": "Below",
+    "characteristicId": "CH-002",
+    "characteristicName": "API Gravity",
+    "comment": "Spec: 19.0 – 21.0 °API; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-010",
+    "name": "Sulphur rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-004",
+    "characteristicName": "Sulphur Content (ppm)",
+    "comment": "Spec: max 10 mg/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-011",
+    "name": "Flash point rejection",
+    "type": "Rejection",
+    "direction": "Below",
+    "characteristicId": "CH-005",
+    "characteristicName": "Flash Point",
+    "comment": "Spec: min 55 °C; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-012",
+    "name": "Cetane premium",
+    "type": "Premium",
+    "direction": "Above",
+    "characteristicId": "CH-013",
+    "characteristicName": "Cetane Number",
+    "comment": "Spec: min 51 number; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-013",
+    "name": "Sulphur penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-004",
+    "characteristicName": "Sulphur Content (ppm)",
+    "comment": "Spec: max 50 mg/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-014",
+    "name": "Sulphur penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-004",
+    "characteristicName": "Sulphur Content (ppm)",
+    "comment": "Spec: max 500 mg/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-015",
+    "name": "Sulphur rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.10 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-016",
+    "name": "CFPP penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-011",
+    "characteristicName": "CFPP",
+    "comment": "Spec: max -20 °C; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-017",
+    "name": "CFPP premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-011",
+    "characteristicName": "CFPP",
+    "comment": "Spec: max -32 °C; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-018",
+    "name": "Octane premium",
+    "type": "Premium",
+    "direction": "Above",
+    "characteristicId": "CH-028",
+    "characteristicName": "Research Octane Number",
+    "comment": "Spec: min 92.0 RON; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-019",
+    "name": "Octane penalty",
+    "type": "Penalty",
+    "direction": "Below",
+    "characteristicId": "CH-028",
+    "characteristicName": "Research Octane Number",
+    "comment": "Spec: min 95.0 RON; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-020",
+    "name": "Benzene rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-030",
+    "characteristicName": "Benzene Content",
+    "comment": "Spec: max 1.0 % v/v; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-021",
+    "name": "Octane penalty",
+    "type": "Penalty",
+    "direction": "Below",
+    "characteristicId": "CH-028",
+    "characteristicName": "Research Octane Number",
+    "comment": "Spec: min 98.0 RON; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-022",
+    "name": "Density escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 650 – 700 kg/m³; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-023",
+    "name": "FBP penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-027",
+    "characteristicName": "Distillation FBP",
+    "comment": "Spec: max 200 °C; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-024",
+    "name": "Freezing point rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-039",
+    "characteristicName": "Freezing Point",
+    "comment": "Spec: max -47 °C; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-025",
+    "name": "Viscosity de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-007",
+    "characteristicName": "Kinematic Viscosity @ 50°C",
+    "comment": "Spec: max 380 mm²/s; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-026",
+    "name": "Sulphur penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 3.50 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-027",
+    "name": "Vanadium penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-018",
+    "characteristicName": "Vanadium",
+    "comment": "Spec: max 350 mg/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-028",
+    "name": "Sulphur rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.50 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-029",
+    "name": "Sediment penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-016",
+    "characteristicName": "Total Sediment",
+    "comment": "Spec: max 0.10 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-030",
+    "name": "Energy content premium",
+    "type": "Premium",
+    "direction": "Above",
+    "characteristicId": "CH-050",
+    "characteristicName": "Net Specific Energy",
+    "comment": "Spec: min 41.0 MJ/kg; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-031",
+    "name": "Sulphur de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.50 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-032",
+    "name": "Sulphur de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 2.50 % m/m; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-033",
+    "name": "Penetration rejection",
+    "type": "Rejection",
+    "direction": "Below",
+    "characteristicId": "CH-048",
+    "characteristicName": "Penetration @ 25°C",
+    "comment": "Spec: 61 – 90 0.1 mm; applied on outturn quality certificate"
+  },
+  {
+    "key": "ESC-034",
+    "name": "Sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 2.00 % m/m; secondary clause"
+  },
+  {
+    "key": "ESC-035",
+    "name": "Density premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 850 – 862 kg/m³; secondary clause"
+  },
+  {
+    "key": "ESC-036",
+    "name": "Density de-escalation",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 875 – 888 kg/m³; secondary clause"
+  },
+  {
+    "key": "ESC-037",
+    "name": "Density rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 820 – 845 kg/m³; secondary clause"
+  },
+  {
+    "key": "ESC-038",
+    "name": "Cetane penalty",
+    "type": "Penalty",
+    "direction": "Below",
+    "characteristicId": "CH-012",
+    "characteristicName": "Cetane Index",
+    "comment": "Spec: min 46 index; secondary clause"
+  },
+  {
+    "key": "ESC-039",
+    "name": "Aromatics penalty",
+    "type": "Penalty",
+    "direction": "Above",
+    "characteristicId": "CH-031",
+    "characteristicName": "Aromatics Content",
+    "comment": "Spec: max 35 % v/v; secondary clause"
+  },
+  {
+    "key": "ESC-040",
+    "name": "Flash point rejection",
+    "type": "Rejection",
+    "direction": "Below",
+    "characteristicId": "CH-005",
+    "characteristicName": "Flash Point",
+    "comment": "Spec: min 38 °C; secondary clause"
+  },
+  {
+    "key": "ESC-041",
+    "name": "Sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.30 % m/m; secondary clause"
+  },
+  {
+    "key": "ESC-042",
+    "name": "Viscosity premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-007",
+    "characteristicName": "Kinematic Viscosity @ 50°C",
+    "comment": "Spec: max 380 mm²/s; secondary clause"
+  },
+  {
+    "key": "ESC-043",
+    "name": "Sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.50 % m/m; secondary clause"
+  },
+  {
+    "key": "ESC-044",
+    "name": "Sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.50 % m/m; secondary clause"
+  },
+  {
+    "key": "ESC-045",
+    "name": "Softening point penalty",
+    "type": "Penalty",
+    "direction": "Below",
+    "characteristicId": "CH-049",
+    "characteristicName": "Softening Point",
+    "comment": "Spec: min 47 °C; secondary clause"
+  },
+  {
+    "key": "ESC-046",
+    "name": "Viscosity rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-006",
+    "characteristicName": "Kinematic Viscosity @ 40°C",
+    "comment": "Spec: 2.0 – 6.0 mm²/s; secondary clause"
+  },
+  {
+    "key": "ESC-047",
+    "name": "Octane rejection",
+    "type": "Rejection",
+    "direction": "Below",
+    "characteristicId": "CH-028",
+    "characteristicName": "Research Octane Number",
+    "comment": "Spec: min 92.0 RON; secondary clause"
+  },
+  {
+    "key": "ESC-048",
+    "name": "Paraffin premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-001",
+    "characteristicName": "Density @ 15°C",
+    "comment": "Spec: 650 – 700 kg/m³; secondary clause"
+  },
+  {
+    "key": "ESC-049",
+    "name": "Vanadium rejection",
+    "type": "Rejection",
+    "direction": "Above",
+    "characteristicId": "CH-018",
+    "characteristicName": "Vanadium",
+    "comment": "Spec: max 350 mg/kg; secondary clause"
+  },
+  {
+    "key": "ESC-050",
+    "name": "Sulphur premium",
+    "type": "Premium",
+    "direction": "Below",
+    "characteristicId": "CH-003",
+    "characteristicName": "Sulphur Content",
+    "comment": "Spec: max 0.15 % m/m; secondary clause"
+  }
+]

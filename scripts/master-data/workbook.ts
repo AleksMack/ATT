@@ -122,6 +122,42 @@ export function assertWorkbookWritable(): void {
   }
 }
 
+/**
+ * Removes every seed mark from the whole workbook: green / red fills set by markRows()
+ * and the values of all "... seed status" columns (the headers stay). Values and fonts of
+ * other cells are not touched. The original workbook uses neither of the two colors.
+ */
+export async function clearAllMarks(): Promise<{ cells: number; statusColumns: number }> {
+  const workbook = await load();
+  let cells = 0;
+  let statusColumns = 0;
+  workbook.eachSheet((sheet) => {
+    const statusCells = new Set<string>();
+    sheet.eachRow((row) => {
+      row.eachCell((cell, column) => {
+        if (/seed status$/i.test(cell.text.trim())) {
+          statusColumns++;
+          sheet.getColumn(column).eachCell((c, rowNumber) => {
+            if (rowNumber > Number(row.number)) statusCells.add(c.address);
+          });
+        }
+      });
+    });
+    sheet.eachRow((row) => {
+      row.eachCell({ includeEmpty: false }, (cell) => {
+        const fill = cell.fill as { pattern?: string; fgColor?: { argb?: string } } | undefined;
+        if (fill?.pattern === 'solid' && (fill.fgColor?.argb === GREEN || fill.fgColor?.argb === RED)) {
+          cell.style = { ...cell.style, fill: { type: 'pattern', pattern: 'none' } };
+          cells++;
+        }
+      });
+    });
+    for (const address of statusCells) sheet.getCell(address).value = null;
+  });
+  await workbook.xlsx.writeFile(WORKBOOK_PATH);
+  return { cells, statusColumns };
+}
+
 async function load(): Promise<ExcelJS.Workbook> {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(WORKBOOK_PATH);

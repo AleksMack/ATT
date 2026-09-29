@@ -6,9 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Known issues
-- The seed statuses in the workbook are from qa01. uat has almost no reference data (2 characteristics, nothing else), so the next seed runs will create almost everything.
+- 14 escalations are not created (ESC-013, 014, 015, 021, 026, 028, 031, 032, 036, 040, 041, 043, 044, 050): their names are already used by other rows of tab 10, and the system requires unique escalation names. Waiting for BA (open question Q-26).
+- CP-023 "Samarqand Energiya", its 2 bank accounts (ACC-0047, ACC-0048) and vessel VSL-013 "Bohai Legend" (CP-023 is the operator) are not created: its abbreviation "SE" is already used by CP-014 "Santos Energia", and counterparty abbreviations must be unique (`errorCode` 16).
 - 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
+
+## 2026-09-29 — Add counterparties, bank accounts, vessels and escalations seed; open questions
+
+### Added
+- `docs/open-questions.md`: one list of all open questions (Q-01 to Q-25: master data, API, business rules, environment) and the resolved ones (R-01 to R-07). The lists in `docs/test-strategy.md` (section 12) and `docs/discovery.md` now point to it; rule added to `CLAUDE.md`.
+- `npm run seed:clear` (`scripts/clear-seed-marks.ts`, `clearAllMarks()`): removes every green / red seed fill and empties all "... seed status" columns in the workbook; values and fonts are kept.
+- `npm run seed:all`: `seed:clear`, then all seeds with all records, in dependency order (characteristics, products, subproducts, shippers, banks, legal forms, projects, subprojects).
+- `api/clients.ts`: typed client for "Контрагенты" (API resource `clients`); matched by legal name.
+- `scripts/seed-clients.ts` (`npm run seed:clients [-- --limit N]`, default 1; part of `seed:all` after legal forms): counterparties from tab 1. counterpartyKind = 1 if Group Company is "Yes", else 0; counterpartyTypes [1], kycStatus 0, creditLimit 0, role 0, useForSendingOriginals true; legal form by name; country and city as for banks. Also sends `legalFormAbbreviationRUS` and `role`, which the UI sends although Swagger does not list them.
+- `api/clientAccounts.ts`: typed client for counterparty bank accounts (`clients/accountslist`, `createaccount`, `getaccountbyid`, `deleteaccount`); matched by account number (IBAN is "N/A" for 50 of 101).
+- `scripts/seed-client-accounts.ts` (`npm run seed:client-accounts [-- --limit N]`, default 1; in `seed:all` after clients): accounts from tab 3. Client via Counterparty ID -> tab 1 name -> clients list; bank via Bank ID -> tab 2 SWIFT/BIC -> banks list. IBAN "N/A" -> null; currency code from user/dictionary; Active -> status 0, Blocked -> 1 (frozen); accountType 0; statusDate 2020-09-01 for all.
+- `api/vessels.ts`: typed client for "Суда"; the natural key is the IMO number.
+- `scripts/seed-vessels.ts` (`npm run seed:vessels [-- --limit N]`, default 1; in `seed:all` after accounts): vessels from tab 4. imoNumber = digits of "MO #", isCollector = Storage "Yes", flag by country name, owner and operator via tab 1 -> clients list. Type / Vessel Type, Sanction Status and Status are not sent.
+- `api/escalations.ts`: typed client for "Эскалации"; one workbook row = one escalation (key: characteristic + name + comment).
+- `scripts/seed-escalations.ts` (`npm run seed:escalations [-- --limit N]`, default 1; in `seed:all` after subproducts): escalations from tab 10. escalationType 3 for Direction "Above", 2 for "Below" (values given by the team); priceIncrease true for Penalty, false for Premium and Rejection; productCharacteristicId = characteristic id via tab 7; comment = Notes; defaultTop false, defaultStep null.
+- Escalation seed on uat: 50 rows, 36 created, 14 not created: escalation names must be unique in the whole list (`errorCode` 2), and tab 10 reuses 7 names (see Known issues).
+- Vessel seed on uat: 50 rows, 48 created, 1 already existed (VSL-001), 1 error (VSL-013: operator CP-023 is not in the system). No duplicate IMO numbers; 7 vessels with isCollector = true.
+- Account seed on uat: 101 rows, 98 created, 1 already existed (ACC-0001), 2 errors (ACC-0047, ACC-0048: client CP-023 is not in the system). Checked in the system: no duplicates, all 8 Blocked accounts have status 1, all 48 created "N/A" accounts have no IBAN. The workbook shows "exists" instead of "created" for the 98, because the seed was run a second time by mistake.
+- Counterparty seed on uat: 50 rows, 48 created, 1 already existed (CP-001), 1 error (CP-023, see Known issues). 12 cities not matched exactly (closest or first of country), noted in the status column.
+- First full seed on uat (empty stand): 51 characteristics, 14 products, 23 subproducts, 32 shippers (50 rows), 30 banks, 14 legal forms, 6 projects, 50 subprojects created; no errors. All 7 API tests pass on uat.
 
 ## 2026-09-29 — Add shippers, banks, projects and legal forms seed; switch to uat
 
