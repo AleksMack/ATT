@@ -32,9 +32,9 @@ Three projects with distinct directories:
 
    Login is three screens: Login + Password → "Next"; "Select verification method" → "Use OTP from the app"; "OTP password" → "Login"; then the app lands on `/dashboard`. The test stand accepts a fixed OTP (`USER_OTP`). The first click on the verification method is sometimes ignored while the screen is still switching, so it is retried with `toPass()`.
 2. **`ui`** — `tests/ui/`, depends on `setup`, Desktop Chrome at 1600x900. It uses the saved `storageState` **only if the file already exists when the config is loaded**, so on a fresh checkout the first run's UI tests start unauthenticated. Run `--project=setup` first, or restructure if that becomes a problem.
-3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup` yet.
+3. **`api`** — `tests/api/`, uses the `request` fixture with a JSON `Accept` header. It does not depend on `setup`: API tests log in with `apiLogin()` (`POST login/checkloginpassword`, then `POST login/loginotp` with `otpPasswordType: false`) and use `ApiClient`. Trace is off for this project because it would record the login request body.
 
-   API facts (see `docs/discovery.md`): no Swagger has been found; the API is on the same origin as the UI with no `/api` prefix (`API_URL` should be `https://ba01.ctrm.biz`). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (returns `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
+   API facts (see `docs/discovery.md`): no Swagger has been found; the API is on the same origin as the UI with no `/api` prefix (`API_URL` should be `https://ba01.ctrm.biz`). Every response is wrapped as `{ data, error: { errorCode } }` (0 = success; `ApiClient.getData()`/`postData()` unwrap it). Resources follow `GET <resource>/list?pageIndex=&pageSize=` (`data` is `{ totalRecordsCount, filteredRecordsCount, pageIndex, records }`), `GET <resource>/getbyid`, and `POST <resource>/create|update|delete`. Auth is httpOnly cookies (`AccessToken` 10 min, `RefreshToken` 90 days) that the server refreshes itself, so the saved `AUTH_FILE` works as `storageState` for API calls.
 
 Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because tests share data on one test environment. Keep tests independent of order anyway, but don't assume isolation between them. Timeouts are generous (60s test, 15s action, 30s navigation) because the CRM is slow. Trace, screenshot and video are kept only for failed tests.
 
@@ -43,7 +43,8 @@ Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because
 - `tests/setup`, `tests/ui`, `tests/api` — the three projects above
 - `pages/` — page objects for the UI tests
 - `data/` — test data
-- `api/` — typed API helpers, one file per resource (not created yet)
+- `api/` — API layer: `auth.ts` (API login, saves cookies to `playwright/.auth/api-state.json`), `client.ts` (`ApiClient` that reuses that state; typed resource clients go next to it, one file per resource)
+- `utils/` — shared helpers (`env.ts`: `requireEnv()` reads `.env` keys and fails with key names only)
 
 - `specs/` — Markdown test plans written by the planner agent
 - `docs/` — project notes; `docs/discovery.md` has the API resource map, auth details, menu structure and PoC candidates

@@ -18,6 +18,7 @@ Black-box discovery of the OptiFlow CRM (oil trading) test stand at `https://ba0
 ### How the API is shaped
 
 - **Location:** same origin as the UI, no `/api` prefix: `https://ba01.ctrm.biz/<resource>/<action>`.
+- **Response envelope:** every response is `{ data, error: { errorCode } }`; `errorCode` 0 means success. The shapes below describe `data`.
 - **Generic CRUD base service** (most resources):
   - `GET <resource>/list`: paged list. Query params `pageIndex` and `pageSize`. Returns `{ totalRecordsCount, filteredRecordsCount, pageIndex, records[] }` (some lists also have `additionalData`).
   - `GET <resource>/getbyid`

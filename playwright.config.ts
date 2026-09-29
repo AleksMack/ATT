@@ -71,6 +71,8 @@ export default defineConfig({
       testDir: './tests/api',
       use: {
         baseURL: process.env.API_URL,
+        // Traces record API request bodies, including the login password
+        trace: 'off',
         extraHTTPHeaders: {
           Accept: 'application/json',
         },

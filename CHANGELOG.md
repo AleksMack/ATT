@@ -6,9 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Known issues
-- `.env` still uses the old key names (`TEST_USER_EMAIL`, `TEST_USER_PASSWORD`, `TEST_USER_OTP`, `API_BASE_URL`), while the config expects `USER_LOGIN`, `USER_PASSWORD`, `USER_OTP`, `API_URL`. Until they are renamed, the `setup` project fails with "Missing keys in .env".
-- `API_BASE_URL` in `.env` points to `http://localhost:3000/api`, where nothing runs; `API_URL` should be `https://ba01.ctrm.biz`.
+- The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
 - No Swagger / OpenAPI spec found; `docs/openapi.json` is missing until the team shares the URL.
+
+## 2026-09-29 — Add API login and client
+
+### Added
+- `api/auth.ts`: `apiLogin()` logs in through the API without a browser (`login/checkloginpassword` + `login/loginotp`) and saves the session cookies to `playwright/.auth/api-state.json`.
+- `api/client.ts`: `ApiClient` that reuses the saved state for all requests, with `ApiEnvelope` and `PagedList` types and `getData()` / `postData()` that unwrap `{ data, error }`.
+- `utils/env.ts`: `requireEnv()`, fails with the names of missing `.env` keys only.
+- `tests/api/auth.spec.ts`: API login gives 200 and a JSON list on `clients/list`; a request without a session gives 401.
+
+### Changed
+- `api` project: trace turned off, because it would record the login request body.
+
+### Fixed
+- `docs/discovery.md`: API responses are wrapped in `{ data, error }`; this was missing.
+- Local `.env` keys renamed to `USER_LOGIN`, `USER_PASSWORD`, `USER_OTP`, `API_URL` (`https://ba01.ctrm.biz`), and `BASE_URL` switched to https (the file itself is not committed).
 
 ## 2026-09-29 — Add discovery notes
 
