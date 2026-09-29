@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
 - No Swagger / OpenAPI spec found; `docs/openapi.json` is missing until the team shares the URL.
 
+## 2026-09-29 — Add test strategy
+
+### Added
+- `docs/test-strategy.md`: test automation strategy (draft v0.1): scope, test layers, two-tier test data, end-to-end flow design, PoC exit criteria.
+
 ## 2026-09-29 — Add API login and client
 
 ### Added
