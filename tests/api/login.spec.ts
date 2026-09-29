@@ -44,9 +44,12 @@ test.describe('API login: POST login/loginotp', () => {
   });
 
   test('should return error 100002 and no session when the user does not exist', async () => {
-    // A user that does not exist, so failed attempts cannot lock a real account
+    // A user that does not exist, so failed attempts cannot lock a real account.
+    // Unique per run: after several failed attempts the server locks the user name
+    // (errorCode 100009), even for a user that does not exist.
+    const user = `AUTO_nouser_${Date.now().toString(36)}`;
     const response = await api.post('login/loginotp', {
-      data: { user: 'AUTO_no_such_user', password: 'AUTO_wrong', oneTimePassword: 'AUTO_wrong' },
+      data: { user, password: 'AUTO_wrong', oneTimePassword: 'AUTO_wrong' },
     });
 
     // The API reports business errors with HTTP 200 and a non-zero errorCode

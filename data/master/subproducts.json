@@ -1,0 +1,363 @@
+[
+  {
+    "key": "PRD-01-02",
+    "name": "Upper Zakum",
+    "productId": "PRD-01",
+    "characteristics": [
+      {
+        "id": "CH-001",
+        "name": "Density @ 15°C"
+      },
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-043",
+        "name": "BS&W"
+      },
+      {
+        "id": "CH-042",
+        "name": "Salt Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-01-07",
+    "name": "Lula",
+    "productId": "PRD-01",
+    "characteristics": [
+      {
+        "id": "CH-001",
+        "name": "Density @ 15°C"
+      },
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-041",
+        "name": "Total Acid Number"
+      }
+    ]
+  },
+  {
+    "key": "PRD-01-05",
+    "name": "Qua Iboe",
+    "productId": "PRD-01",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-044",
+        "name": "Mercaptan Sulphur"
+      }
+    ]
+  },
+  {
+    "key": "PRD-01-01",
+    "name": "Murban",
+    "productId": "PRD-01",
+    "characteristics": [
+      {
+        "id": "CH-002",
+        "name": "API Gravity"
+      }
+    ]
+  },
+  {
+    "key": "PRD-01-09",
+    "name": "Marlim",
+    "productId": "PRD-01",
+    "characteristics": [
+      {
+        "id": "CH-002",
+        "name": "API Gravity"
+      },
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-01",
+    "name": "ULSD 10 ppm",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-004",
+        "name": "Sulphur Content (ppm)"
+      },
+      {
+        "id": "CH-001",
+        "name": "Density @ 15°C"
+      },
+      {
+        "id": "CH-005",
+        "name": "Flash Point"
+      },
+      {
+        "id": "CH-013",
+        "name": "Cetane Number"
+      },
+      {
+        "id": "CH-011",
+        "name": "CFPP"
+      },
+      {
+        "id": "CH-035",
+        "name": "Lubricity (HFRR WSD)"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-02",
+    "name": "Gasoil 50 ppm",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-004",
+        "name": "Sulphur Content (ppm)"
+      },
+      {
+        "id": "CH-012",
+        "name": "Cetane Index"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-03",
+    "name": "Gasoil 500 ppm",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-004",
+        "name": "Sulphur Content (ppm)"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-04",
+    "name": "Marine Gasoil 0.1% S",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-006",
+        "name": "Kinematic Viscosity @ 40°C"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-05",
+    "name": "Winter ULSD (CFPP -20)",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-011",
+        "name": "CFPP"
+      }
+    ]
+  },
+  {
+    "key": "PRD-02-06",
+    "name": "Arctic ULSD (CFPP -32)",
+    "productId": "PRD-02",
+    "characteristics": [
+      {
+        "id": "CH-011",
+        "name": "CFPP"
+      },
+      {
+        "id": "CH-010",
+        "name": "Cloud Point"
+      }
+    ]
+  },
+  {
+    "key": "PRD-03-01",
+    "name": "RON 92",
+    "productId": "PRD-03",
+    "characteristics": [
+      {
+        "id": "CH-028",
+        "name": "Research Octane Number"
+      }
+    ]
+  },
+  {
+    "key": "PRD-03-02",
+    "name": "RON 95",
+    "productId": "PRD-03",
+    "characteristics": [
+      {
+        "id": "CH-028",
+        "name": "Research Octane Number"
+      },
+      {
+        "id": "CH-030",
+        "name": "Benzene Content"
+      },
+      {
+        "id": "CH-033",
+        "name": "Reid Vapour Pressure"
+      },
+      {
+        "id": "CH-031",
+        "name": "Aromatics Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-03-03",
+    "name": "RON 98",
+    "productId": "PRD-03",
+    "characteristics": [
+      {
+        "id": "CH-028",
+        "name": "Research Octane Number"
+      },
+      {
+        "id": "CH-029",
+        "name": "Motor Octane Number"
+      }
+    ]
+  },
+  {
+    "key": "PRD-04-01",
+    "name": "Light Virgin Naphtha",
+    "productId": "PRD-04",
+    "characteristics": [
+      {
+        "id": "CH-001",
+        "name": "Density @ 15°C"
+      }
+    ]
+  },
+  {
+    "key": "PRD-04-03",
+    "name": "Full Range Naphtha",
+    "productId": "PRD-04",
+    "characteristics": [
+      {
+        "id": "CH-027",
+        "name": "Distillation FBP"
+      }
+    ]
+  },
+  {
+    "key": "PRD-05-01",
+    "name": "Jet A-1",
+    "productId": "PRD-05",
+    "characteristics": [
+      {
+        "id": "CH-039",
+        "name": "Freezing Point"
+      },
+      {
+        "id": "CH-005",
+        "name": "Flash Point"
+      },
+      {
+        "id": "CH-038",
+        "name": "Smoke Point"
+      },
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-06-01",
+    "name": "HSFO 380 cSt",
+    "productId": "PRD-06",
+    "characteristics": [
+      {
+        "id": "CH-007",
+        "name": "Kinematic Viscosity @ 50°C"
+      },
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-018",
+        "name": "Vanadium"
+      }
+    ]
+  },
+  {
+    "key": "PRD-06-03",
+    "name": "VLSFO 0.5% S",
+    "productId": "PRD-06",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      },
+      {
+        "id": "CH-016",
+        "name": "Total Sediment"
+      },
+      {
+        "id": "CH-050",
+        "name": "Net Specific Energy"
+      }
+    ]
+  },
+  {
+    "key": "PRD-06-05",
+    "name": "LSFO 1.0% S",
+    "productId": "PRD-06",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-07-01",
+    "name": "LS VGO",
+    "productId": "PRD-07",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-07-02",
+    "name": "HS VGO",
+    "productId": "PRD-07",
+    "characteristics": [
+      {
+        "id": "CH-003",
+        "name": "Sulphur Content"
+      }
+    ]
+  },
+  {
+    "key": "PRD-08-01",
+    "name": "BND 60/90",
+    "productId": "PRD-08",
+    "characteristics": [
+      {
+        "id": "CH-048",
+        "name": "Penetration @ 25°C"
+      },
+      {
+        "id": "CH-049",
+        "name": "Softening Point"
+      }
+    ]
+  }
+]

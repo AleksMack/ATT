@@ -1,5 +1,10 @@
 [
   {
+    "key": "CH-000",
+    "name": "Density",
+    "comment": "Base characteristic for all products"
+  },
+  {
     "key": "CH-001",
     "name": "Density @ 15°C",
     "comment": "Density at 15 °C, ASTM D1298 / D4052"
@@ -16,7 +21,7 @@
   },
   {
     "key": "CH-004",
-    "name": "Sulphur Content (ppm)",
+    "name": "Sulphur Cont (ppm)",
     "comment": "Total sulphur for ULS grades, ASTM D5453"
   },
   {
@@ -26,17 +31,17 @@
   },
   {
     "key": "CH-006",
-    "name": "Kinematic Viscosity @ 40°C",
+    "name": "Kinematic Visc @40°C",
     "comment": "ASTM D445"
   },
   {
     "key": "CH-007",
-    "name": "Kinematic Viscosity @ 50°C",
+    "name": "Kinematic Visc @50°C",
     "comment": "ASTM D445, residual fuels"
   },
   {
     "key": "CH-008",
-    "name": "Kinematic Viscosity @ 100°C",
+    "name": "Kinematic Visc@100°C",
     "comment": "ASTM D445, base oils"
   },
   {
@@ -111,22 +116,22 @@
   },
   {
     "key": "CH-023",
-    "name": "Distillation 10% Recovered",
+    "name": "Distillation 10% Rec",
     "comment": "ASTM D86"
   },
   {
     "key": "CH-024",
-    "name": "Distillation 50% Recovered",
+    "name": "Distillation 50% Rec",
     "comment": "ASTM D86"
   },
   {
     "key": "CH-025",
-    "name": "Distillation 90% Recovered",
+    "name": "Distillation 90% Rec",
     "comment": "ASTM D86"
   },
   {
     "key": "CH-026",
-    "name": "Distillation 95% Recovered",
+    "name": "Distillation 95% Rec",
     "comment": "ASTM D86"
   },
   {
@@ -136,7 +141,7 @@
   },
   {
     "key": "CH-028",
-    "name": "Research Octane Number",
+    "name": "Research Octane Numb",
     "comment": "ASTM D2699"
   },
   {
@@ -176,7 +181,7 @@
   },
   {
     "key": "CH-036",
-    "name": "Copper Strip Corrosion",
+    "name": "Cop Strip Corrosion",
     "comment": "ASTM D130, 3 h @ 50°C"
   },
   {

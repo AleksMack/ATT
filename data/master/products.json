@@ -1,0 +1,156 @@
+[
+  {
+    "key": "PRD-01",
+    "name": "Crude Oil",
+    "comment": "A naturally occurring mixture of hydrocarbons extracted from underground reservoirs. It is the main feedstock for producing fuels and petrochemical products",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-02",
+    "name": "Gasoil",
+    "comment": "A middle distillate used to produce diesel fuel, heating oil, and other industrial products.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-03",
+    "name": "Gasoline",
+    "comment": "A light fuel used in spark ignition engines, such as those in most passenger cars.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-04",
+    "name": "Naphtha",
+    "comment": "A light petroleum fraction used as feedstock for petrochemicals and as a component in gasoline production.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-05",
+    "name": "Jet Fuel",
+    "comment": "A kerosene-based fuel used in aircraft gas turbine engines.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-06",
+    "name": "Fuel Oil",
+    "comment": "A heavy liquid fuel used in marine engines, boilers, and industrial equipment.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-07",
+    "name": "Vacuum Gasoil",
+    "comment": "A heavy petroleum fraction produced by vacuum distillation. It is used as feedstock for catalytic cracking and other refining processes.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-08",
+    "name": "Bitumen",
+    "comment": "A thick or solid petroleum material commonly used in road construction and waterproofing.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-09",
+    "name": "LPG",
+    "comment": "Liquefied petroleum gas, usually a mixture of propane and butane. It is used as fuel and as a petrochemical feedstock.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-10",
+    "name": "Kerosene",
+    "comment": "A petroleum fraction between gasoline and gasoil, used for heating, lighting, and as a component of aviation fuel.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-11",
+    "name": "Base Oils",
+    "comment": "The primary oils used to manufacture lubricants. Additives are blended in to achieve specific performance properties.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-12",
+    "name": "Marine Fuels",
+    "comment": "Fuels used by ships, including residual and distillate grades selected to meet engine requirements and emissions regulations.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-13",
+    "name": "Gas Condensate",
+    "comment": "A liquid hydrocarbon mixture separated from natural gas during production and processing. It is used as a fuel component and petrochemical feedstock.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  },
+  {
+    "key": "PRD-14",
+    "name": "Petroleum Coke",
+    "comment": "A solid, carbon-rich product made from heavy petroleum residues. It is used in industrial processes and energy production.",
+    "characteristicIds": [
+      "CH-000"
+    ],
+    "characteristicNames": [
+      "Density"
+    ]
+  }
+]

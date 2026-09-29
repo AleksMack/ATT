@@ -1,6 +1,7 @@
 import type { ApiClient, PagedList } from './client';
+import { ensureAllByName, ensureOne, listAllPages, type EnsureResult } from './referenceData';
 
-/** Record of GET physicalcharacteristics/list and getbyid (Swagger leaves the response untyped). */
+/** Record of GET physicalcharacteristics/list and getbyid (Swagger: FullCharacteristic). */
 export interface PhysicalCharacteristic {
   id: number;
   name: string;
@@ -17,9 +18,7 @@ export interface CreatePhysicalCharacteristicRequest {
   comment?: string;
 }
 
-export type EnsureResult =
-  | { request: CreatePhysicalCharacteristicRequest; status: 'created' | 'exists'; record: PhysicalCharacteristic }
-  | { request: CreatePhysicalCharacteristicRequest; status: 'error'; error: string };
+export type CharacteristicEnsureResult = EnsureResult<CreatePhysicalCharacteristicRequest, PhysicalCharacteristic>;
 
 const BASE = 'physicalcharacteristics';
 
@@ -38,16 +37,8 @@ export class PhysicalCharacteristicsApi {
     return this.api.getData(`${BASE}/list`, { PageIndex: pageIndex, PageSize: pageSize, SortColumn: 'name' });
   }
 
-  /** All records, page by page until totalRecordsCount is reached. */
-  async listAll(pageSize = 100): Promise<PhysicalCharacteristic[]> {
-    const records: PhysicalCharacteristic[] = [];
-    for (let pageIndex = 0; ; pageIndex++) {
-      const page = await this.list(pageIndex, pageSize);
-      records.push(...page.records);
-      if (page.records.length === 0 || records.length >= page.totalRecordsCount) {
-        return records;
-      }
-    }
+  listAll(): Promise<PhysicalCharacteristic[]> {
+    return listAllPages((pageIndex) => this.list(pageIndex));
   }
 
   /** Records whose name is exactly `name`. */
@@ -69,40 +60,12 @@ export class PhysicalCharacteristicsApi {
     await this.api.postData(`${BASE}/delete`, { id: record.id, token: record.lock.token });
   }
 
-  /**
-   * Reference data rule: if a record with the same name exists, reuse it and do not create
-   * a duplicate. Existing records are not updated.
-   * Loads the full list once, compares names exactly, then creates only the missing ones.
-   */
-  /** A failed create does not stop the batch: it is returned with status "error". */
-  async ensureAll(requests: CreatePhysicalCharacteristicRequest[]): Promise<EnsureResult[]> {
-    const byName = new Map((await this.listAll()).map((record) => [record.name, record]));
-    const results: EnsureResult[] = [];
-    for (const request of requests) {
-      const existing = byName.get(request.name);
-      if (existing) {
-        results.push({ request, status: 'exists', record: existing });
-        continue;
-      }
-      try {
-        const record = await this.create(request);
-        byName.set(record.name, record);
-        results.push({ request, status: 'created', record });
-      } catch (error) {
-        results.push({ request, status: 'error', error: (error as Error).message });
-      }
-    }
-    return results;
+  /** Loads the full list once and creates only the missing records (see ensureAllByName). */
+  async ensureAll(requests: CreatePhysicalCharacteristicRequest[]): Promise<CharacteristicEnsureResult[]> {
+    return ensureAllByName(await this.listAll(), requests, (request) => this.create(request));
   }
 
-  /** One record; throws if it cannot be created. */
-  async ensure(
-    request: CreatePhysicalCharacteristicRequest,
-  ): Promise<{ record: PhysicalCharacteristic; created: boolean }> {
-    const [result] = await this.ensureAll([request]);
-    if (result.status === 'error') {
-      throw new Error(result.error);
-    }
-    return { record: result.record, created: result.status === 'created' };
+  ensure(request: CreatePhysicalCharacteristicRequest): Promise<{ record: PhysicalCharacteristic; created: boolean }> {
+    return ensureOne((requests) => this.ensureAll(requests), request);
   }
 }

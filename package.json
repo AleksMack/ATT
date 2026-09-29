@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "seed:characteristics": "tsx scripts/seed-characteristics.ts"
+    "seed:characteristics": "tsx scripts/seed-characteristics.ts",
+    "seed:products": "tsx scripts/seed-products.ts",
+    "seed:subproducts": "tsx scripts/seed-subproducts.ts"
   },
   "repository": {
     "type": "git",

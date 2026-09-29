@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import fs from 'fs';
 
 /** Master data workbook (see docs/test-strategy.md, 5.2). */
 export const WORKBOOK_PATH = 'docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx';
@@ -25,29 +26,62 @@ export async function readSheet(sheetName: string, firstHeader: string): Promise
   return rows;
 }
 
+export interface MarkOptions {
+  /** Header of the column whose value is the key in `statuses`. Default: the first column. */
+  keyHeader?: string;
+  /** Header of the status column, added after the last header if missing. Default: "Seed status". */
+  statusHeader?: string;
+  /** Headers of the columns to color. Default: all columns up to the status column. */
+  colorHeaders?: string[];
+}
+
 /**
- * Colors data rows green (ok) or red (not ok) and writes the status text into the
- * "Seed status" column, added after the last header if missing. Rows are matched by
- * the value of the first column (the workbook ID, e.g. CH-001).
+ * Colors data rows green (ok) or red (not ok) and writes the status text into the status
+ * column. Rows are matched by the key column value (the workbook ID, e.g. CH-001); several
+ * rows may share a key (e.g. a product repeated for each of its subproducts).
+ * Rows not in `statuses` are cleared (no fill, empty status): the tab shows only this run.
+ * Only fill and the status column change; values and fonts (e.g. blue edits) stay as they are.
  */
-export async function markRows(sheetName: string, firstHeader: string, statuses: Map<string, RowStatus>): Promise<void> {
+export async function markRows(
+  sheetName: string,
+  firstHeader: string,
+  statuses: Map<string, RowStatus>,
+  options: MarkOptions = {},
+): Promise<void> {
   const workbook = await load();
   const { sheet, headerRow, headers } = locate(workbook, sheetName, firstHeader);
+  const statusHeader = options.statusHeader ?? STATUS_HEADER;
+  const keyColumn = options.keyHeader ? headers.indexOf(options.keyHeader) + 1 : 1;
+  if (!keyColumn) throw new Error(`Column "${options.keyHeader}" not found in tab "${sheetName}"`);
 
-  let statusColumn = headers.indexOf(STATUS_HEADER) + 1;
+  let statusColumn = headers.indexOf(statusHeader) + 1;
   if (!statusColumn) {
     statusColumn = headers.length + 1;
     const header = sheet.getRow(headerRow).getCell(statusColumn);
-    header.value = STATUS_HEADER;
+    header.value = statusHeader;
     header.style = { ...sheet.getRow(headerRow).getCell(1).style };
     sheet.getColumn(statusColumn).width = 45;
   }
+  const colorColumns = options.colorHeaders
+    ? [...options.colorHeaders.map((header) => headers.indexOf(header) + 1), statusColumn]
+    : Array.from({ length: statusColumn }, (_, i) => i + 1);
 
   sheet.eachRow((row, rowNumber) => {
-    const status = statuses.get(row.getCell(1).text.trim());
-    if (rowNumber <= headerRow || !status) return;
+    if (rowNumber <= headerRow || !row.getCell(keyColumn).text.trim()) return;
+    const status = statuses.get(row.getCell(keyColumn).text.trim());
+
+    // Clear the previous run first, so the colors show only this run
+    if (!status) {
+      row.getCell(statusColumn).value = null;
+      for (const column of colorColumns) {
+        const cell = row.getCell(column);
+        cell.style = { ...cell.style, fill: { type: 'pattern', pattern: 'none' } };
+      }
+      return;
+    }
+
     row.getCell(statusColumn).value = status.text;
-    for (let column = 1; column <= statusColumn; column++) {
+    for (const column of colorColumns) {
       const cell = row.getCell(column);
       // New style object per cell: exceljs shares style objects between cells
       cell.style = {
@@ -61,6 +95,20 @@ export async function markRows(sheetName: string, firstHeader: string, statuses:
     await workbook.xlsx.writeFile(WORKBOOK_PATH);
   } catch (error) {
     throw new Error(`Cannot write ${WORKBOOK_PATH} (is it open in Excel?): ${(error as Error).message}`);
+  }
+}
+
+/**
+ * Fails if the workbook cannot be written (usually: open in Excel). Seed scripts call it
+ * before any API call, so a run never creates records it then cannot report in the workbook.
+ */
+export function assertWorkbookWritable(): void {
+  try {
+    fs.closeSync(fs.openSync(WORKBOOK_PATH, 'r+'));
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+    const hint = code === 'EBUSY' || code === 'EPERM' ? 'close it in Excel and run again' : (error as Error).message;
+    throw new Error(`Workbook ${WORKBOOK_PATH} is not writable: ${hint}. Nothing was sent to the API.`);
   }
 }
 

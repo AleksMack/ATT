@@ -7,7 +7,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Known issues
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
-- 10 characteristics in tab 7 (CH-004, 006, 007, 008, 023, 024, 025, 026, 028, 036) are not created: names are longer than 20 characters. Waiting for BA (strategy, open question 11).
+
+## 2026-09-29 — Add products and subproducts seed
+
+### Added
+- `api/referenceData.ts`: shared `ensureAllByName()`, `ensureOne()` and `listAllPages()` for every reference data client.
+- `api/products.ts`: typed client for "Продукты" (top-level products: list with `FilterData.IsProduct=true`, listAll, getById, create, delete, ensureAll).
+- `scripts/seed-products.ts` (`npm run seed:products`): products from tab 8 (Product Name -> name, Product ID -> abbreviation, Description -> comment, Characteristic ID -> characteristics via tab 7). Marks columns A-B of tab 8 with a "Product seed status" column.
+- `scripts/seed-subproducts.ts` (`npm run seed:subproducts [-- --limit N]`, default 1): subproducts from tab 9 (Subproduct -> name, Subproduct ID -> abbreviation, parent by Product ID, all characteristics of the subproduct's rows via tab 7, `subproductType` 0). Marks the subproduct columns of tab 9 with a "Subproduct seed status" column.
+- `scripts/master-data/characteristicLinks.ts` (Characteristic ID -> tab 7 name -> id in the system) and `scripts/master-data/report.ts` (shared result printing and row statuses).
+- `ProductsApi.listAllSubproducts()` / `ensureAllSubproducts()`: subproducts are matched by parent id + name (`ensureAllByKey()`).
+- Reseed on qa01 after the stand was cleaned and the workbook restructured (product characteristics and comment moved to tab 8, CH-000 "Density" added to tab 7): 51 of 51 characteristics (CH-000 id 130), 14 of 14 products with CH-000 and comment (ids 49-62), 23 of 23 subproducts from tab 9 with all their characteristics (PRD-01-02 "Upper Zakum" id 65, then 22 more; no errors). Subproducts may have characteristics that their parent product does not have.
+
+### Changed
+- `api/physicalCharacteristics.ts` uses the shared reference data helpers (same behaviour).
+- `markRows()` takes options: key column, status column name, columns to color (several rows may share a key).
+- Seed scripts print the result before writing the workbook, so it is shown even if the workbook is open in Excel.
+- `markRows()` clears the previous marks of the tab before marking, so the colors show only the current run (values and fonts are kept).
+- `seed-products.ts` links a product's characteristic by Characteristic ID (tab 9 -> tab 7 name -> id in the system), not by the name in tab 9, which may be outdated.
+
+### Fixed
+- Seed scripts check that the workbook is writable before any API call (`assertWorkbookWritable()`); if it is open in Excel they stop with "Nothing was sent to the API", so results are never lost.
+- `seed-subproducts.ts` sent only the first characteristic of a subproduct; it now sends all of them (Upper Zakum has 4).
+- `tests/api/login.spec.ts`: unique unknown user per run. The server locks a user name after several failed logins (`errorCode` 100009), even for a user that does not exist, which broke the test on repeated runs.
 
 ## 2026-09-29 — Switch to qa01, add login tests and characteristics seed
 

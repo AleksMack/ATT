@@ -19,9 +19,11 @@ npx playwright test --headed / --debug / --ui  # local debugging
 npx playwright show-report                     # open HTML report
 npx playwright show-trace test-results/<...>/trace.zip
 npm run seed:characteristics                   # seed tab 7 of the master data workbook via API
+npm run seed:products [-- --limit N]           # seed products from tab 8 (default: all)
+npm run seed:subproducts [-- --limit N]        # seed subproducts from tab 9 (default: first only)
 ```
 
-Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Close the workbook in Excel before running a seed, or the write fails.
+Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Each run first clears the marks of its tab, so the colors show only that run. Characteristic links go by Characteristic ID through tab 7 (`scripts/master-data/characteristicLinks.ts`). Order: characteristics, then products, then subproducts. Close the workbook in Excel before running a seed, or the write fails.
 
 ## Configuration and environment
 

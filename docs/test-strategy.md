@@ -235,7 +235,8 @@ Rule: a test is accepted only after a human checked that the assertions match th
 8. Bank statement: import (file format?) or manual creation?
 9. Which documents can be deleted after a run?
 10. Can developers add `data-testid` attributes to key elements?
-11. Characteristic names are limited to 20 characters: longer names are rejected with `errorCode 1 "Name"`. This limit was found by testing and is not in Swagger. 10 of 50 names in tab 7 are longer (for example, `Kinematic Viscosity @ 100°C`, 27 characters). Should they be shortened, and how? Are there similar limits in other tabs?
+11. *(Resolved 2026-09-29: BA shortened the 10 names in tab 7, marked in blue font; tab 9 is linked by Characteristic ID.)* Characteristic names are limited to 20 characters: longer names are rejected with `errorCode 1 "Name"`. This limit was found by testing and is not in Swagger. 10 of 50 names in tab 7 are longer (for example, `Kinematic Viscosity @ 100°C`, 27 characters). Should they be shortened, and how? Are there similar limits in other tabs?
+12. *(Resolved 2026-09-29: every product now has CH-000 "Density" in tab 8.)* A product needs at least one characteristic (`errorCode 8`), but tab 9 has none for PRD-09 to PRD-14 (LPG, Kerosene, Base Oils, Marine Fuels, Gas Condensate, Petroleum Coke). Which characteristics should they have?
 
 ## 13. PoC exit criteria
 

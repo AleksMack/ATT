@@ -14,14 +14,15 @@ import 'dotenv/config';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
-import { PhysicalCharacteristicsApi, type EnsureResult } from '../api/physicalCharacteristics';
-import { markRows, readSheet, type RowStatus } from './master-data/workbook';
+import { PhysicalCharacteristicsApi, type CharacteristicEnsureResult as EnsureResult } from '../api/physicalCharacteristics';
+import { assertWorkbookWritable, markRows, readSheet, type RowStatus } from './master-data/workbook';
 
 const SHEET = '7. Characteristics';
 const FIRST_HEADER = 'Characteristic ID';
 const JSON_FILE = 'data/master/characteristics.json';
 
 async function main(): Promise<void> {
+  assertWorkbookWritable();
   const rows = await readSheet(SHEET, FIRST_HEADER);
   const items = rows.map((row) => ({
     key: row['Characteristic ID'],
@@ -50,9 +51,10 @@ async function main(): Promise<void> {
         : { ok: true, text: `${result.status}, id ${result.record.id} (${runAt})` },
     );
   });
-  await markRows(SHEET, FIRST_HEADER, statuses);
-
+  // Print first, so the result is shown even if the workbook is open in Excel
   print(items, results);
+  await markRows(SHEET, FIRST_HEADER, statuses);
+  console.log('Workbook updated: rows marked green (in the system) or red (not created).');
 }
 
 function print(items: { key: string; name: string }[], results: EnsureResult[]): void {
@@ -64,7 +66,6 @@ function print(items: { key: string; name: string }[], results: EnsureResult[]):
       console.log(`  ${item.key}  ${item.name.padEnd(30)} ${detail}`);
     }
   }
-  console.log(`\nWorkbook updated: rows marked green (in the system) or red (not created).`);
 }
 
 main().catch((error) => {
