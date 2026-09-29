@@ -14,12 +14,13 @@
  * not updated). Tab 8 is cleared and re-marked: product columns green / red, "Product seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ProductsApi, type CreateProductRequest, type Product, type ProductEnsureResult } from '../api/products';
 import { loadCharacteristicLinks } from './master-data/characteristicLinks';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '8. Products & Subproducts';
@@ -76,6 +77,8 @@ async function main(): Promise<void> {
     characteristics: p.characteristics.map((c) => ({ id: c.id, name: c.name })),
   }));
   console.log(`Products processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('products', idsOf(results));
 
   await markRows(SHEET, 'Product ID', toStatuses(results), {
     statusHeader: 'Product seed status',

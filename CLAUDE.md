@@ -20,6 +20,7 @@ npx playwright show-report                     # open HTML report
 npx playwright show-trace test-results/<...>/trace.zip
 npm run seed:all                               # clear all marks, then run every seed below in dependency order (all records)
 npm run seed:clear                             # remove all seed colors and statuses from the workbook
+npm run seed:map                               # read-only: rebuild data/master/id-map.<env>.json (creates nothing, workbook untouched)
 npm run seed:characteristics                   # seed tab 7 of the master data workbook via API
 npm run seed:products [-- --limit N]           # seed products from tab 8 (default: all)
 npm run seed:subproducts [-- --limit N]        # seed subproducts from tab 9 (default: first only)
@@ -32,6 +33,8 @@ npm run seed:clients [-- --limit N]            # seed counterparties from tab 1 
 npm run seed:client-accounts [-- --limit N]    # seed bank accounts from tab 3 (needs clients and banks; default: first only)
 npm run seed:vessels [-- --limit N]            # seed vessels from tab 4 (needs clients; default: first only)
 npm run seed:escalations [-- --limit N]        # seed escalations from tab 10 (needs characteristics; default: first only)
+npm run seed:ports [-- --limit N]              # seed ports from tab 12 (key: UN/LOCODE; default: first only)
+npm run seed:resources [-- --limit N]          # seed resources from tab 13 (key: name; default: first only)
 ```
 
 Seed scripts (`scripts/seed-*.ts`, run with `tsx`) read a tab of `docs/CRM_Master_Data_Request_TESTDATA_v3.xlsx`, rewrite `data/master/<tab>.json`, create only missing records via the resource client's `ensureAll()`, and write the result back to the workbook: green row = in the system, red row = not created or error, with the reason in the "Seed status" column. Each run first clears the marks of its tab, so the colors show only that run. Characteristic links go by Characteristic ID through tab 7 (`scripts/master-data/characteristicLinks.ts`). Order: characteristics, then products, then subproducts. Close the workbook in Excel before running a seed, or the write fails.
@@ -82,6 +85,10 @@ The app (OptiFlow, Angular) has no `data-testid` attributes, so locators rely on
 ## Language
 
 All documents and files in this repository are written in English: code, comments, test names, test plans in `specs/`, `CHANGELOG.md`, `CLAUDE.md` and commit messages. This applies even when the user writes in Russian; only chat replies follow the user's language. The one exception is UI text copied from the app into locators and assertions, which must match the app exactly.
+
+## Id map
+
+Ids in the system change when records are recreated or the environment changes, so seeds never store them: every run resolves ids live from the API by natural key. As a by-product each seed writes `data/master/id-map.<env>.json` (env = first part of the `BASE_URL` host; gitignored): workbook key -> id for every record in the system, per resource (`characteristics`, `clients`, `banks`, ...). `npm run seed:map` rebuilds it read-only (all seeds with `SEED_MAP_ONLY=1`: nothing is created, the workbook is not written). Tests take ids with `getId(resource, key, lookup)` from `utils/idMap.ts`: from the map, or from the API lookup, which is then saved. Never edit the map by hand.
 
 ## Open questions
 

@@ -6,10 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Known issues
+- 14 ports have a wrong city (13 got the first city of the country, "Rio Grande" got "Rio Grande da Serra"), and PRT-001 "Fujairah" has no sanction status although tab 12 marks it "Restricted" (open questions Q-28, Q-30).
 - 14 escalations are not created (ESC-013, 014, 015, 021, 026, 028, 031, 032, 036, 040, 041, 043, 044, 050): their names are already used by other rows of tab 10, and the system requires unique escalation names. Waiting for BA (open question Q-26).
 - CP-023 "Samarqand Energiya", its 2 bank accounts (ACC-0047, ACC-0048) and vessel VSL-013 "Bohai Legend" (CP-023 is the operator) are not created: its abbreviation "SE" is already used by CP-014 "Santos Energia", and counterparty abbreviations must be unique (`errorCode` 16).
 - 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
+
+## 2026-09-29 — Add id map, ports and resources seed
+
+### Added
+- Id map per environment, `data/master/id-map.<env>.json` (gitignored): workbook key -> id in the system for every record, written by each seed (`utils/idMap.ts`: `updateIdMap`, `getId` for tests, `forgetIds`).
+- `api/ports.ts`: ports client; existing ports come from the shared `logisticobjects/list` (ports, resources, terminals; type 1 = port, systemStatus 0), matched by UN/LOCODE.
+- `scripts/seed-ports.ts` (`npm run seed:ports [-- --limit N]`, default 1; in `seed:all` and `seed:map` after vessels): ports from tab 12. name = Port Name, unlocode = UN/LOCODE, addressLine = Notes, country by Country/Region, city by the port name; sanctionStatuses [{ id 1, "Санкционный объект" }] only for Status "Restricted".
+- `GeoApi.cityFromName()`: city for names with a note in brackets ("Abu Dhabi (Mina Zayed)" -> Abu Dhabi, "Itaqui (São Luís)" -> Itaqui).
+- Port seed on uat: 50 rows, 49 created, 1 already existed (PRT-001 "Fujairah", id 1, created by hand without the sanction status); no errors. Qingdao and Rizhao created with the sanction status. 17 cities not matched exactly (13 first of country, 4 closest), noted in the status column.
+- `api/resources.ts`: resources client; existing resources come from `logisticobjects/list` (type 2), matched by name (several resources share a port and its UN/LOCODE).
+- `scripts/seed-resources.ts` (`npm run seed:resources [-- --limit N]`, default 1; in `seed:all` and `seed:map` after ports): resources from tab 13. name = Resource Name, unlocode = UN/LOCODE, country by Country/Region, city by the Port Name (the tab has no city); sanctionStatuses only for Status "Restricted" (none in the tab). Resource Type, Terminal, Status and Notes are not sent.
+- First resource check on uat: RES-001 "Ruwais Refinery West" already exists (id 2), not created.
+- `npm run seed:map` (`scripts/seed-map.ts`): rebuilds the id map read-only by running every seed in map-only mode (`SEED_MAP_ONLY=1`: nothing created, workbook not written). First map on uat: 471 keys in 12 resources.
 
 ## 2026-09-29 — Add counterparties, bank accounts, vessels and escalations seed; open questions
 

@@ -1,0 +1,402 @@
+[
+  {
+    "key": "PRT-001",
+    "name": "Fujairah",
+    "unlocode": "AEFJR",
+    "country": "United Arab Emirates",
+    "status": "Restricted",
+    "notes": "Load/Discharge; bunkering & storage hub; restricted – compliance clearance required"
+  },
+  {
+    "key": "PRT-002",
+    "name": "Jebel Ali",
+    "unlocode": "AEJEA",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-003",
+    "name": "Ruwais",
+    "unlocode": "AERUW",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Load; refinery export"
+  },
+  {
+    "key": "PRT-004",
+    "name": "Khor Fakkan",
+    "unlocode": "AEKLF",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Load/Discharge; bunkering"
+  },
+  {
+    "key": "PRT-005",
+    "name": "Hamriyah",
+    "unlocode": "AEHAM",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Load/Discharge; fuel oil, bitumen"
+  },
+  {
+    "key": "PRT-006",
+    "name": "Abu Dhabi (Mina Zayed)",
+    "unlocode": "AEAUH",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-007",
+    "name": "Das Island",
+    "unlocode": "AEDAS",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Load; crude & condensate"
+  },
+  {
+    "key": "PRT-008",
+    "name": "Jebel Dhanna",
+    "unlocode": "AEJED",
+    "country": "United Arab Emirates",
+    "status": "Active",
+    "notes": "Load; crude export terminal"
+  },
+  {
+    "key": "PRT-009",
+    "name": "Lagos (Apapa)",
+    "unlocode": "NGAPP",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Discharge; products; draft-limited"
+  },
+  {
+    "key": "PRT-010",
+    "name": "Lagos",
+    "unlocode": "NGLOS",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Discharge; STS lightering off Lagos"
+  },
+  {
+    "key": "PRT-011",
+    "name": "Port Harcourt",
+    "unlocode": "NGPHC",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-012",
+    "name": "Onne",
+    "unlocode": "NGONN",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Discharge; products & bunkers"
+  },
+  {
+    "key": "PRT-013",
+    "name": "Bonny",
+    "unlocode": "NGBON",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Load; crude export terminal"
+  },
+  {
+    "key": "PRT-014",
+    "name": "Escravos",
+    "unlocode": "NGESC",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Load; crude export terminal"
+  },
+  {
+    "key": "PRT-015",
+    "name": "Forcados",
+    "unlocode": "NGFOR",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Load; crude export terminal"
+  },
+  {
+    "key": "PRT-016",
+    "name": "Brass",
+    "unlocode": "NGBRA",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Load; crude export terminal"
+  },
+  {
+    "key": "PRT-017",
+    "name": "Warri",
+    "unlocode": "NGWAR",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery & products"
+  },
+  {
+    "key": "PRT-018",
+    "name": "Calabar",
+    "unlocode": "NGCBQ",
+    "country": "Nigeria",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-019",
+    "name": "Ningbo",
+    "unlocode": "CNNGB",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; crude & products"
+  },
+  {
+    "key": "PRT-020",
+    "name": "Qingdao",
+    "unlocode": "CNTAO",
+    "country": "China",
+    "status": "Restricted",
+    "notes": "Discharge; crude; restricted – compliance clearance required"
+  },
+  {
+    "key": "PRT-021",
+    "name": "Dalian",
+    "unlocode": "CNDLC",
+    "country": "China",
+    "status": "Inactive",
+    "notes": "Discharge; crude; refinery"
+  },
+  {
+    "key": "PRT-022",
+    "name": "Shanghai",
+    "unlocode": "CNSHA",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-023",
+    "name": "Tianjin",
+    "unlocode": "CNTSN",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; crude & products"
+  },
+  {
+    "key": "PRT-024",
+    "name": "Zhoushan",
+    "unlocode": "CNZOS",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; bunkering & storage"
+  },
+  {
+    "key": "PRT-025",
+    "name": "Zhanjiang",
+    "unlocode": "CNZHA",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; crude"
+  },
+  {
+    "key": "PRT-026",
+    "name": "Huizhou",
+    "unlocode": "CNHUI",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; crude; refinery"
+  },
+  {
+    "key": "PRT-027",
+    "name": "Rizhao",
+    "unlocode": "CNRZH",
+    "country": "China",
+    "status": "Restricted",
+    "notes": "Discharge; crude; restricted – compliance clearance required"
+  },
+  {
+    "key": "PRT-028",
+    "name": "Yantai",
+    "unlocode": "CNYNT",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-029",
+    "name": "Qinzhou",
+    "unlocode": "CNQZH",
+    "country": "China",
+    "status": "Active",
+    "notes": "Discharge; crude; refinery"
+  },
+  {
+    "key": "PRT-030",
+    "name": "Tashkent (rail terminal)",
+    "unlocode": "UZTAS",
+    "country": "Uzbekistan",
+    "status": "Active",
+    "notes": "Discharge; rail tank cars; inland"
+  },
+  {
+    "key": "PRT-031",
+    "name": "Termez (rail terminal)",
+    "unlocode": "UZTER",
+    "country": "Uzbekistan",
+    "status": "Active",
+    "notes": "Load/Discharge; rail transshipment; inland"
+  },
+  {
+    "key": "PRT-032",
+    "name": "Bukhara (rail terminal)",
+    "unlocode": "UZBHK",
+    "country": "Uzbekistan",
+    "status": "Active",
+    "notes": "Load; refinery rail rack; inland"
+  },
+  {
+    "key": "PRT-033",
+    "name": "Fergana (rail terminal)",
+    "unlocode": "UZFEG",
+    "country": "Uzbekistan",
+    "status": "Inactive",
+    "notes": "Load; refinery rail rack; inland"
+  },
+  {
+    "key": "PRT-034",
+    "name": "Navoi (rail terminal)",
+    "unlocode": "UZNVI",
+    "country": "Uzbekistan",
+    "status": "Active",
+    "notes": "Discharge; rail tank cars; inland"
+  },
+  {
+    "key": "PRT-035",
+    "name": "Santos",
+    "unlocode": "BRSSZ",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-036",
+    "name": "Rio de Janeiro",
+    "unlocode": "BRRIO",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products & bunkers"
+  },
+  {
+    "key": "PRT-037",
+    "name": "Paranaguá",
+    "unlocode": "BRPNG",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-038",
+    "name": "Itaqui (São Luís)",
+    "unlocode": "BRSLZ",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-039",
+    "name": "Suape",
+    "unlocode": "BRSUA",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery & products"
+  },
+  {
+    "key": "PRT-040",
+    "name": "Salvador",
+    "unlocode": "BRSSA",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-041",
+    "name": "São Sebastião",
+    "unlocode": "BRSSO",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Load/Discharge; crude terminal"
+  },
+  {
+    "key": "PRT-042",
+    "name": "Angra dos Reis",
+    "unlocode": "BRADR",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Load; crude export"
+  },
+  {
+    "key": "PRT-043",
+    "name": "Rio Grande",
+    "unlocode": "BRRIG",
+    "country": "Brazil",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-044",
+    "name": "Augusta",
+    "unlocode": "ITAUG",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery"
+  },
+  {
+    "key": "PRT-045",
+    "name": "Trieste",
+    "unlocode": "ITTRS",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Discharge; crude pipeline head"
+  },
+  {
+    "key": "PRT-046",
+    "name": "Genoa",
+    "unlocode": "ITGOA",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Discharge; products & bunkers"
+  },
+  {
+    "key": "PRT-047",
+    "name": "Milazzo",
+    "unlocode": "ITMLZ",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery"
+  },
+  {
+    "key": "PRT-048",
+    "name": "Sarroch",
+    "unlocode": "ITSAR",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery"
+  },
+  {
+    "key": "PRT-049",
+    "name": "Livorno",
+    "unlocode": "ITLIV",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Discharge; products"
+  },
+  {
+    "key": "PRT-050",
+    "name": "Taranto",
+    "unlocode": "ITTAR",
+    "country": "Italy",
+    "status": "Active",
+    "notes": "Load/Discharge; refinery"
+  }
+]

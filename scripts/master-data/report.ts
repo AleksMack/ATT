@@ -35,6 +35,19 @@ export function printResults<Req, Rec extends { id: number }>(
   console.log(`\nCreated: ${count('created')}, exists: ${count('exists')}, errors: ${count('error')}`);
 }
 
+/** Workbook key -> id for every record that is in the system (created or exists), for the id map. */
+export function idsOf<Req, Rec extends { id: number }>(results: Keyed<Req, Rec>[]): Record<string, number> {
+  return Object.fromEntries(
+    results.flatMap(({ key, result }) => (result.status === 'error' ? [] : [[key, result.record.id] as [string, number]])),
+  );
+}
+
+/**
+ * Map-only mode (`npm run seed:map`): the seeds match records exactly as usual, but create
+ * nothing and leave the workbook as it is; only the id map is written.
+ */
+export const MAP_ONLY = process.env.SEED_MAP_ONLY === '1';
+
 /** --limit N from the command line, or `fallback`. */
 export function limitArg(fallback: number): number {
   const i = process.argv.indexOf('--limit');

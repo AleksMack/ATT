@@ -13,12 +13,13 @@
  * Tab 10 is cleared and re-marked: Escalation ID and Escalation Name green / red, "Seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { EscalationsApi, type CreateEscalationRequest, type Escalation, type EscalationEnsureResult } from '../api/escalations';
 import { loadCharacteristicLinks } from './master-data/characteristicLinks';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '10. Escalations';
@@ -87,6 +88,8 @@ async function main(): Promise<void> {
     comment: e.comment,
   }));
   console.log(`Escalations processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('escalations', idsOf(results));
 
   await markRows(SHEET, 'Escalation ID', toStatuses(results), {
     colorHeaders: ['Escalation ID', 'Escalation Name'],

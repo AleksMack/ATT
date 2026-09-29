@@ -16,13 +16,14 @@
  * not updated). Tab 1 counterparty columns are cleared and re-marked, "Counterparty seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ClientsApi, type Client, type ClientEnsureResult, type CreateClientRequest } from '../api/clients';
 import { GeoApi } from '../api/geo';
 import { LegalFormsApi } from '../api/legalForms';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '1. Counterparties';
@@ -115,6 +116,8 @@ async function main(): Promise<void> {
     const status = statuses.get(key);
     if (status) status.text = `${status.text}; ${note}`;
   }
+  updateIdMap('clients', idsOf(results));
+
   await markRows(SHEET, 'Counterparty ID', statuses, {
     statusHeader: 'Counterparty seed status',
     colorHeaders: ['Counterparty ID', 'Name (ENG)'],

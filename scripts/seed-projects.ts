@@ -11,11 +11,12 @@
  * Tab 6 is cleared and re-marked: project columns green / red, "Project seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ProjectsApi, type CreateProjectRequest, type Project, type ProjectEnsureResult } from '../api/projects';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet, toIsoDate } from './master-data/workbook';
 
 const SHEET = '6. Projects & Subprojects';
@@ -57,6 +58,8 @@ async function main(): Promise<void> {
   // Print first, so the result is shown even if the workbook write fails
   printResults(results, (p: Project) => ({ name: p.name, code: p.code, startDate: p.startDate }));
   console.log(`Projects processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('projects', idsOf(results));
 
   await markRows(SHEET, 'Project ID', toStatuses(results), {
     statusHeader: 'Project seed status',

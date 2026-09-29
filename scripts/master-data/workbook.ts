@@ -48,6 +48,8 @@ export async function markRows(
   statuses: Map<string, RowStatus>,
   options: MarkOptions = {},
 ): Promise<void> {
+  // Map-only mode (npm run seed:map) leaves the workbook as it is
+  if (process.env.SEED_MAP_ONLY === '1') return;
   const workbook = await load();
   const { sheet, headerRow, headers } = locate(workbook, sheetName, firstHeader);
   const statusHeader = options.statusHeader ?? STATUS_HEADER;
@@ -113,6 +115,7 @@ export function toIsoDate(text: string): string {
  * before any API call, so a run never creates records it then cannot report in the workbook.
  */
 export function assertWorkbookWritable(): void {
+  if (process.env.SEED_MAP_ONLY === '1') return;
   try {
     fs.closeSync(fs.openSync(WORKBOOK_PATH, 'r+'));
   } catch (error) {

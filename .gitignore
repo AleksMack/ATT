@@ -13,3 +13,6 @@ node_modules/
 
 # Playwright MCP output (snapshots, console logs)
 /.playwright-mcp/
+
+# Id maps are environment-specific (data/master/id-map.<env>.json)
+/data/master/id-map.*.json

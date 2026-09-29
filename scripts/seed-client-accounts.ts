@@ -15,6 +15,7 @@
  * not updated). Tab 3 is cleared and re-marked: Account ID and Account No. green / red, "Seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { BanksApi } from '../api/banks';
@@ -26,7 +27,7 @@ import {
   type CreateClientAccountRequest,
 } from '../api/clientAccounts';
 import { ClientsApi } from '../api/clients';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '3. Bank Accounts';
@@ -113,6 +114,8 @@ async function main(): Promise<void> {
     status: a.status,
   }));
   console.log(`Accounts processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('clientAccounts', idsOf(results));
 
   await markRows(SHEET, 'Account ID', toStatuses(results), {
     colorHeaders: ['Account ID', 'Account No.'],

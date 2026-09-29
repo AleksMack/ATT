@@ -15,12 +15,13 @@
  * "Subproduct seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ProductsApi, type CreateProductRequest, type Product, type ProductEnsureResult } from '../api/products';
 import { loadCharacteristicLinks } from './master-data/characteristicLinks';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '9. Product Characteristics';
@@ -93,6 +94,8 @@ async function main(): Promise<void> {
     characteristics: p.characteristics.map((c) => ({ id: c.id, name: c.name })),
   }));
   console.log(`Subproducts processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('subproducts', idsOf(results));
 
   await markRows(SHEET, 'Product Characteristic ID', toStatuses(results), {
     keyHeader: 'Subproduct ID',

@@ -71,7 +71,7 @@ Rule: if a step is the subject of the test, it is done through the UI. If a step
 
 - Source: `CRM_Master_Data_Request_TESTDATA_v3.xlsx` (17 tabs).
 - The workbook is converted into JSON files in the repo (`data/master/*.json`). Tests and seed scripts read JSON, not Excel.
-- Workbook IDs (`CP-001`, `BNK-001`, `VSL-001`, ...) are **cross-reference keys only**. The seed script maps them to real system IDs returned by the API and stores the map in `data/master/id-map.json` (not committed, environment-specific).
+- Workbook IDs (`CP-001`, `BNK-001`, `VSL-001`, ...) are **cross-reference keys only**. The seed script maps them to real system IDs returned by the API and stores the map in `data/master/id-map.<env>.json` (for example `id-map.uat.json`; not committed, environment-specific). The map is a by-product, not a source: seeds always resolve ids live from the API, and `npm run seed:map` rebuilds the map read-only after an environment change or reset.
 
 ### 5.3 Seed rules
 

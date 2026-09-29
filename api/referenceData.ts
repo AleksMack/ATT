@@ -46,6 +46,11 @@ export async function ensureAllByKey<Req, Rec>(
       results.push({ request, status: 'exists', record: found });
       continue;
     }
+    // Map-only mode (npm run seed:map): report the record as missing instead of creating it
+    if (process.env.SEED_MAP_ONLY === '1') {
+      results.push({ request, status: 'error', error: 'not in the system (map only, nothing created)' });
+      continue;
+    }
     try {
       const record = await create(request);
       byKey.set(key(record), record);

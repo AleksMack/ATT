@@ -13,11 +13,12 @@
  * "Subproject seed status"; the project columns are left as they are.
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ProjectsApi, type CreateProjectRequest, type Project, type ProjectEnsureResult } from '../api/projects';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet, toIsoDate } from './master-data/workbook';
 
 const SHEET = '6. Projects & Subprojects';
@@ -70,6 +71,8 @@ async function main(): Promise<void> {
   // Print first, so the result is shown even if the workbook write fails
   printResults(results, (s: Project) => ({ name: s.name, startDate: s.startDate, parentId: s.parentId }));
   console.log(`Subprojects processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('subprojects', idsOf(results));
 
   await markRows(SHEET, 'Project ID', toStatuses(results), {
     keyHeader: 'Subproject ID',

@@ -10,11 +10,12 @@
  * Tab 5 is cleared and re-marked: Shipper ID and Shipper Name green / red, "Seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ShippersApi, type Shipper, type ShipperEnsureResult } from '../api/shippers';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '5. Shippers';
@@ -40,6 +41,8 @@ async function main(): Promise<void> {
   // Print first, so the result is shown even if the workbook write fails
   printResults(results, (s: Shipper) => ({ name: s.name }));
   console.log(`Rows processed: ${results.length} of ${items.length}, distinct names: ${new Set(selected.map((i) => i.name)).size}.`);
+
+  updateIdMap('shippers', idsOf(results));
 
   await markRows(SHEET, 'Shipper ID', toStatuses(results), {
     colorHeaders: ['Shipper ID', 'Shipper Name'],

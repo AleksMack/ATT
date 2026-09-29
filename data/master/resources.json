@@ -1,0 +1,402 @@
+[
+  {
+    "key": "RES-001",
+    "name": "Ruwais Refinery West",
+    "unlocode": "AERUW",
+    "port": "Ruwais",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-002",
+    "name": "Ruwais Refinery East",
+    "unlocode": "AERUW",
+    "port": "Ruwais",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-003",
+    "name": "Fujairah Blending Pool",
+    "unlocode": "AEFJR",
+    "port": "Fujairah",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-004",
+    "name": "Fujairah Bunker Barge Pool",
+    "unlocode": "AEFJR",
+    "port": "Fujairah",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-005",
+    "name": "Hamriyah Bitumen Plant",
+    "unlocode": "AEHAM",
+    "port": "Hamriyah",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-006",
+    "name": "Das Island Gas Processing",
+    "unlocode": "AEDAS",
+    "port": "Das Island",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-007",
+    "name": "Upper Zakum Offshore Field",
+    "unlocode": "AERUW",
+    "port": "Ruwais",
+    "country": "United Arab Emirates",
+    "status": "Active"
+  },
+  {
+    "key": "RES-008",
+    "name": "Murban Onshore Fields",
+    "unlocode": "AEJED",
+    "port": "Jebel Dhanna",
+    "country": "United Arab Emirates",
+    "status": "Under Review"
+  },
+  {
+    "key": "RES-009",
+    "name": "Port Harcourt Refinery",
+    "unlocode": "NGPHC",
+    "port": "Port Harcourt",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-010",
+    "name": "Warri Refinery",
+    "unlocode": "NGWAR",
+    "port": "Warri",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-011",
+    "name": "Kaduna Refinery",
+    "unlocode": "NGAPP",
+    "port": "Lagos (Apapa)",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-012",
+    "name": "Lekki Refinery Complex",
+    "unlocode": "NGLOS",
+    "port": "Lagos",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-013",
+    "name": "Apapa Depot Cluster",
+    "unlocode": "NGAPP",
+    "port": "Lagos (Apapa)",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-014",
+    "name": "Bonny Light Fields",
+    "unlocode": "NGBON",
+    "port": "Bonny",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-015",
+    "name": "Escravos Fields",
+    "unlocode": "NGESC",
+    "port": "Escravos",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-016",
+    "name": "Forcados Fields",
+    "unlocode": "NGFOR",
+    "port": "Forcados",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-017",
+    "name": "Brass River Fields",
+    "unlocode": "NGBRA",
+    "port": "Brass",
+    "country": "Nigeria",
+    "status": "Active"
+  },
+  {
+    "key": "RES-018",
+    "name": "Dalian Refinery",
+    "unlocode": "CNDLC",
+    "port": "Dalian",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-019",
+    "name": "Zhenhai Refinery",
+    "unlocode": "CNNGB",
+    "port": "Ningbo",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-020",
+    "name": "Maoming Refinery",
+    "unlocode": "CNZHA",
+    "port": "Zhanjiang",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-021",
+    "name": "Huizhou Refinery",
+    "unlocode": "CNHUI",
+    "port": "Huizhou",
+    "country": "China",
+    "status": "Inactive"
+  },
+  {
+    "key": "RES-022",
+    "name": "Shanghai Gaoqiao Refinery",
+    "unlocode": "CNSHA",
+    "port": "Shanghai",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-023",
+    "name": "Tianjin Nangang Petrochemical",
+    "unlocode": "CNTSN",
+    "port": "Tianjin",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-024",
+    "name": "Zhoushan Bonded Storage",
+    "unlocode": "CNZOS",
+    "port": "Zhoushan",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-025",
+    "name": "Zhoushan Bunker Blending",
+    "unlocode": "CNZOS",
+    "port": "Zhoushan",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-026",
+    "name": "Dongying Independent Refineries",
+    "unlocode": "CNTAO",
+    "port": "Qingdao",
+    "country": "China",
+    "status": "Inactive"
+  },
+  {
+    "key": "RES-027",
+    "name": "Daqing Field",
+    "unlocode": "CNDLC",
+    "port": "Dalian",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-028",
+    "name": "Shengli Field",
+    "unlocode": "CNTAO",
+    "port": "Qingdao",
+    "country": "China",
+    "status": "Active"
+  },
+  {
+    "key": "RES-029",
+    "name": "Bukhara Refinery",
+    "unlocode": "UZBHK",
+    "port": "Bukhara (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-030",
+    "name": "Fergana Refinery",
+    "unlocode": "UZFEG",
+    "port": "Fergana (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-031",
+    "name": "Alty-Aryk Refinery",
+    "unlocode": "UZFEG",
+    "port": "Fergana (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-032",
+    "name": "Shurtan Gas Chemical Complex",
+    "unlocode": "UZTER",
+    "port": "Termez (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-033",
+    "name": "Mubarek Gas Processing Plant",
+    "unlocode": "UZBHK",
+    "port": "Bukhara (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-034",
+    "name": "Tashkent Oil Depot",
+    "unlocode": "UZTAS",
+    "port": "Tashkent (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-035",
+    "name": "Navoi Industrial Depot",
+    "unlocode": "UZNVI",
+    "port": "Navoi (rail terminal)",
+    "country": "Uzbekistan",
+    "status": "Active"
+  },
+  {
+    "key": "RES-036",
+    "name": "Paulínia Refinery",
+    "unlocode": "BRSSO",
+    "port": "São Sebastião",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-037",
+    "name": "Duque de Caxias Refinery",
+    "unlocode": "BRRIO",
+    "port": "Rio de Janeiro",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-038",
+    "name": "Mataripe Refinery",
+    "unlocode": "BRSSA",
+    "port": "Salvador",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-039",
+    "name": "Abreu e Lima Refinery",
+    "unlocode": "BRSUA",
+    "port": "Suape",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-040",
+    "name": "Cubatão Refinery",
+    "unlocode": "BRSSZ",
+    "port": "Santos",
+    "country": "Brazil",
+    "status": "Inactive"
+  },
+  {
+    "key": "RES-041",
+    "name": "Araucária Refinery",
+    "unlocode": "BRPNG",
+    "port": "Paranaguá",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-042",
+    "name": "Lula Field (Santos Basin)",
+    "unlocode": "BRSSO",
+    "port": "São Sebastião",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-043",
+    "name": "Búzios Field (Santos Basin)",
+    "unlocode": "BRADR",
+    "port": "Angra dos Reis",
+    "country": "Brazil",
+    "status": "Under Review"
+  },
+  {
+    "key": "RES-044",
+    "name": "Marlim Field (Campos Basin)",
+    "unlocode": "BRADR",
+    "port": "Angra dos Reis",
+    "country": "Brazil",
+    "status": "Active"
+  },
+  {
+    "key": "RES-045",
+    "name": "Sarroch Refinery",
+    "unlocode": "ITSAR",
+    "port": "Sarroch",
+    "country": "Italy",
+    "status": "Active"
+  },
+  {
+    "key": "RES-046",
+    "name": "Milazzo Refinery",
+    "unlocode": "ITMLZ",
+    "port": "Milazzo",
+    "country": "Italy",
+    "status": "Active"
+  },
+  {
+    "key": "RES-047",
+    "name": "Priolo Refinery",
+    "unlocode": "ITAUG",
+    "port": "Augusta",
+    "country": "Italy",
+    "status": "Active"
+  },
+  {
+    "key": "RES-048",
+    "name": "Sannazzaro Refinery",
+    "unlocode": "ITGOA",
+    "port": "Genoa",
+    "country": "Italy",
+    "status": "Active"
+  },
+  {
+    "key": "RES-049",
+    "name": "Livorno Refinery",
+    "unlocode": "ITLIV",
+    "port": "Livorno",
+    "country": "Italy",
+    "status": "Active"
+  },
+  {
+    "key": "RES-050",
+    "name": "Taranto Refinery",
+    "unlocode": "ITTAR",
+    "port": "Taranto",
+    "country": "Italy",
+    "status": "Active"
+  }
+]

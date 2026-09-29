@@ -45,6 +45,27 @@ export class GeoApi {
     return first && { id: first.id, name: first.name, match: 'fallback' };
   }
 
+  /**
+   * City for a name that may carry a note in brackets, e.g. port names "Abu Dhabi (Mina Zayed)",
+   * "Tashkent (rail terminal)", "Itaqui (São Luís)". Tries an exact match for the whole name,
+   * the name without the brackets and the text inside them; then as city(): the first search
+   * result for any of them, else the first city of the country.
+   */
+  async cityFromName(countryId: number, name: string): Promise<CityMatch | undefined> {
+    const outside = name.replace(/\s*\(.*?\)\s*/g, ' ').trim();
+    const inside = /\((.*?)\)/.exec(name)?.[1]?.trim();
+    const candidates = [...new Set([name, outside, inside].filter((c): c is string => !!c))];
+    const found = await Promise.all(candidates.map((candidate) => this.cities(countryId, candidate)));
+    for (const [i, candidate] of candidates.entries()) {
+      const exact = found[i].find((c) => c.name === candidate);
+      if (exact) return { id: exact.id, name: exact.name, match: 'exact' };
+    }
+    const closest = found.find((list) => list.length > 0)?.[0];
+    if (closest) return { id: closest.id, name: closest.name, match: 'closest' };
+    const [first] = await this.cities(countryId);
+    return first && { id: first.id, name: first.name, match: 'fallback' };
+  }
+
   private async cities(countryId: number, name?: string): Promise<GeoItem[]> {
     const page = await this.api.getData<PagedList<GeoItem>>('geoobjectsearch/citylisteng', {
       'FilterData.CountryId': countryId,

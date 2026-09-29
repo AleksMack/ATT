@@ -13,11 +13,12 @@
  * that legal form, "Legal form seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { LegalFormsApi, type CreateLegalFormRequest, type LegalForm, type LegalFormEnsureResult } from '../api/legalForms';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '1. Counterparties';
@@ -55,6 +56,8 @@ async function main(): Promise<void> {
     abbreviation_RUS: f.abbreviation_RUS,
   }));
   console.log(`Legal forms processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('legalForms', idsOf(results));
 
   // Rows are matched by their legal form, so every counterparty with it is marked
   await markRows(SHEET, 'Counterparty ID', toStatuses(results), {

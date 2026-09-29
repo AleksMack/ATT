@@ -14,13 +14,14 @@
  * (not updated). Tab 4 is cleared and re-marked: Vessel ID and Vessel Name green / red, "Seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
 import { ClientsApi } from '../api/clients';
 import { GeoApi } from '../api/geo';
 import { VesselsApi, type CreateVesselRequest, type Vessel, type VesselEnsureResult } from '../api/vessels';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '4. Tankers - Vessels';
@@ -106,6 +107,8 @@ async function main(): Promise<void> {
     dwt: v.dwt,
   }));
   console.log(`Vessels processed: ${results.length} of ${items.length}.`);
+
+  updateIdMap('vessels', idsOf(results));
 
   await markRows(SHEET, 'Vessel ID', toStatuses(results), {
     colorHeaders: ['Vessel ID', 'Vessel Name'],

@@ -11,6 +11,7 @@
  *    (created now or already there), red = not created or error.
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { ApiClient } from '../api/client';
@@ -53,6 +54,10 @@ async function main(): Promise<void> {
   });
   // Print first, so the result is shown even if the workbook is open in Excel
   print(items, results);
+  updateIdMap(
+    'characteristics',
+    Object.fromEntries(results.flatMap((r, i) => (r.status === 'error' ? [] : [[items[i].key, r.record.id] as [string, number]]))),
+  );
   await markRows(SHEET, FIRST_HEADER, statuses);
   console.log('Workbook updated: rows marked green (in the system) or red (not created).');
 }

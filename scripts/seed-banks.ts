@@ -14,12 +14,13 @@
  * Tab 2 is cleared and re-marked: Bank ID and names green / red, "Seed status".
  */
 import 'dotenv/config';
+import { updateIdMap } from '../utils/idMap';
 import fs from 'fs';
 import { apiLogin } from '../api/auth';
 import { BanksApi, type Bank, type BankEnsureResult, type CreateBankRequest } from '../api/banks';
 import { ApiClient } from '../api/client';
 import { GeoApi } from '../api/geo';
-import { limitArg, printResults, toStatuses } from './master-data/report';
+import { idsOf, limitArg, printResults, toStatuses } from './master-data/report';
 import { assertWorkbookWritable, markRows, readSheet } from './master-data/workbook';
 
 const SHEET = '2. Banks';
@@ -81,6 +82,8 @@ async function main(): Promise<void> {
     const status = statuses.get(key);
     if (status) status.text = `${status.text}; ${note}`;
   }
+  updateIdMap('banks', idsOf(results));
+
   await markRows(SHEET, 'Bank ID', statuses, {
     colorHeaders: ['Bank ID', 'Name (ENG)', 'Name (RUS)'],
   });
