@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Known issues
 - `.env` still uses the old key names (`TEST_USER_EMAIL`, `TEST_USER_PASSWORD`, `TEST_USER_OTP`, `API_BASE_URL`), while the config expects `USER_LOGIN`, `USER_PASSWORD`, `USER_OTP`, `API_URL`. Until they are renamed, the `setup` project fails with "Missing keys in .env".
 
+## 2026-09-29 — Add conventions to CLAUDE.md
+
+### Added
+- "Conventions" section in `CLAUDE.md`: Page Objects, locator priority, no hard waits, self-contained test data with the `AUTO_` prefix, typed API helpers in `api/`, reference data via API, secrets only from `.env`, test naming `should <expected result> when <condition>`.
+
 ## 2026-09-29 — Add login setup, changelog and language rule
 
 ### Added

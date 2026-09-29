@@ -41,10 +41,23 @@ Execution is intentionally serial (`workers: 1`, `fullyParallel: false`) because
 - `tests/setup`, `tests/ui`, `tests/api` — the three projects above
 - `pages/` — page objects for the UI tests
 - `data/` — test data
+- `api/` — typed API helpers, one file per resource (not created yet)
 
 - `specs/` — Markdown test plans written by the planner agent
 
 The app (OptiFlow, Angular) has no `data-testid` attributes, so locators rely on roles and accessible names. The UI is in Russian (e.g. main menu buttons "Трейдинг", "Финансы", "Логистика"), and menu button names include counters ("Трейдинг 3"), so match them with a regex.
+
+## Conventions
+
+- **Page Objects:** one class per page in `pages/`. Tests call page methods only; locators and raw `page` calls live inside the page classes.
+- **Locators:** use `getByRole`, `getByLabel` and `getByTestId` first. CSS or XPath only as a last resort, with a comment explaining why.
+- **Waiting:** no hard waits (`waitForTimeout`). Rely on Playwright's auto-waiting and web-first `expect` assertions (`toBeVisible`, `toHaveURL`, `toPass` for retries).
+- **Test data:** every test creates its own data and deletes it at the end, so tests never depend on each other or on leftovers.
+- **Naming test records:** every record a test creates has a name starting with `AUTO_`, so leftovers are easy to find and clean up.
+- **API helpers:** in `api/`, one file per resource, typed with interfaces taken from the Swagger schema.
+- **Reference data** (dictionaries) is created via the API, not the UI.
+- **Secrets** come only from `.env` and are never printed (not in the console, logs, traces or chat).
+- **Test names** are in English, in the form `should <expected result> when <condition>`.
 
 ## Language
 
