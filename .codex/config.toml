@@ -1,0 +1,16 @@
+[mcp_servers.playwright]
+command = "cmd"
+args = [
+    "/c",
+    "npx",
+    "@playwright/mcp@0.0.83",
+]
+
+[mcp_servers.playwright-test]
+command = "cmd"
+args = [
+    "/c",
+    "npx",
+    "playwright",
+    "run-test-mcp-server",
+]

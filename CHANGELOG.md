@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
 
+## 2026-09-30 — Add Codex instructions and config
+
+### Added
+- `AGENTS.md`: the project instructions for Codex, the same as `CLAUDE.md` (keep both in sync).
+- `.codex/`: Codex config with the same two MCP servers as `.mcp.json` (`playwright` pinned to `@playwright/mcp@0.0.83`, `playwright-test`) and the three Playwright Test Agents (planner, generator, healer).
+
 ## 2026-09-30 — Speed up seed:all, add seed:delete
 
 ### Changed
