@@ -15,6 +15,7 @@
  */
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
+import { mapLimit, SEED_CONCURRENCY } from '../utils/concurrency';
 import fs from 'fs';
 import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
@@ -27,7 +28,7 @@ import { assertWorkbookWritable, markRows, readSheet } from './master-data/workb
 const SHEET = '4. Tankers - Vessels';
 const JSON_FILE = 'data/master/vessels.json';
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const counterparties = new Map((await readSheet('1. Counterparties', 'Counterparty ID')).map((r) => [r['Counterparty ID'], r['Name (ENG)']]));
   const rows = await readSheet(SHEET, 'Vessel ID');
@@ -43,7 +44,7 @@ async function main(): Promise<void> {
     operatorId: row['Operator ID'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -58,6 +59,8 @@ async function main(): Promise<void> {
       return clientIds.get(name) ?? `${role} ${counterpartyId} "${name}" is not in the system`;
     };
 
+    // Geo lookups in parallel first; the loop below then reads them from the GeoApi cache
+    await mapLimit(selected, SEED_CONCURRENCY, (item) => geo.countryId(item.flag));
     const requests: { key: string; request: CreateVesselRequest }[] = [];
     for (const item of selected) {
       const owner = link(item.ownerId, 'owner');
@@ -116,7 +119,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

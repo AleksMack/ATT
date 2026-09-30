@@ -1,6 +1,6 @@
 import type { ApiClient, PagedList } from './client';
 import type { PhysicalCharacteristic } from './physicalCharacteristics';
-import { ensureAllByKey, ensureAllByName, ensureOne, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, ensureAllByName, ensureOne, listAllPages, type EnsureResult } from './referenceData';
 
 /** Characteristic link inside a product: the API accepts { id, name } (Swagger: FullCharacteristic). */
 export interface ProductCharacteristicRef {
@@ -75,7 +75,10 @@ export class ProductsApi {
 
   /** Subproducts: same rule, keyed by parent id + name. Requests must have parentId. */
   async ensureAllSubproducts(requests: CreateProductRequest[]): Promise<ProductEnsureResult[]> {
-    return ensureAllByKey(await this.listAllSubproducts(), requests, subproductKey, (request) => this.create(request));
+    return ensureAllByKey(await this.listAllSubproducts(), requests, subproductKey, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAllSubproducts(),
+    });
   }
 
   async findByName(name: string): Promise<Product[]> {
@@ -86,9 +89,19 @@ export class ProductsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateProductRequest): Promise<Product> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateProductRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateProductRequest): Promise<Product> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Product, 'id' | 'lock'>): Promise<void> {
@@ -97,7 +110,10 @@ export class ProductsApi {
 
   /** Loads the full list once and creates only the missing products (see ensureAllByName). */
   async ensureAll(requests: CreateProductRequest[]): Promise<ProductEnsureResult[]> {
-    return ensureAllByName(await this.listAll(), requests, (request) => this.create(request));
+    return ensureAllByName(await this.listAll(), requests, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 
   ensure(request: CreateProductRequest): Promise<{ record: Product; created: boolean }> {

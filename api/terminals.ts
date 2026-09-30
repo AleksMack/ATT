@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET terminals/list and getbyid. */
 export interface Terminal {
@@ -41,9 +41,19 @@ export class TerminalsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateTerminalRequest): Promise<Terminal> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateTerminalRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateTerminalRequest): Promise<Terminal> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Terminal, 'id'> & { lock: { token: string } }): Promise<void> {
@@ -52,6 +62,9 @@ export class TerminalsApi {
 
   /** Terminals are matched by name (unique in the workbook). */
   async ensureAll(requests: CreateTerminalRequest[]): Promise<TerminalEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => item.name, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => item.name, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

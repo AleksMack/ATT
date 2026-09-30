@@ -15,6 +15,7 @@
  */
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
+import { mapLimit, SEED_CONCURRENCY } from '../utils/concurrency';
 import fs from 'fs';
 import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
@@ -26,7 +27,7 @@ import { assertWorkbookWritable, markRows, readSheet } from './master-data/workb
 const SHEET = '12. Load & Unload Ports';
 const JSON_FILE = 'data/master/ports.json';
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const rows = await readSheet(SHEET, 'Port ID');
   const items = rows.map((row) => ({
@@ -38,7 +39,7 @@ async function main(): Promise<void> {
     notes: row['Notes'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -46,6 +47,11 @@ async function main(): Promise<void> {
   const cityNotes = new Map<string, string>();
   try {
     const geo = new GeoApi(api);
+    // Geo lookups in parallel first; the loop below then reads them from the GeoApi cache
+    await mapLimit(selected, SEED_CONCURRENCY, async (item) => {
+      const countryId = await geo.countryId(item.country);
+      if (countryId !== undefined) await geo.cityFromName(countryId, item.name);
+    });
     const requests: { key: string; request: CreatePortRequest }[] = [];
     for (const item of selected) {
       const request: CreatePortRequest = {
@@ -92,7 +98,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

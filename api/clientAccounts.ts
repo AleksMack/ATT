@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET clients/accountslist. */
 export interface ClientAccount {
@@ -51,9 +51,19 @@ export class ClientAccountsApi {
     return this.api.getData(`${BASE}/getaccountbyid`, { id });
   }
 
-  async create(request: CreateClientAccountRequest): Promise<ClientAccount> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getaccountbyid`, `${BASE}/deleteaccount`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateClientAccountRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/createaccount`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateClientAccountRequest): Promise<ClientAccount> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<ClientAccount, 'id'> & { lock: { token: string } }): Promise<void> {
@@ -65,6 +75,9 @@ export class ClientAccountsApi {
    * number: IBAN is missing ("N/A") for many accounts.
    */
   async ensureAll(requests: CreateClientAccountRequest[]): Promise<ClientAccountEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => item.accountNumber, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => item.accountNumber, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

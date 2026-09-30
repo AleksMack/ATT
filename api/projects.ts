@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, ensureAllByName, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, ensureAllByName, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET projects/list. */
 export interface Project {
@@ -46,9 +46,19 @@ export class ProjectsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateProjectRequest): Promise<Project> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateProjectRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateProjectRequest): Promise<Project> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Project, 'id'> & { lock: { token: string } }): Promise<void> {
@@ -57,7 +67,10 @@ export class ProjectsApi {
 
   /** Loads the full list once and creates only the missing projects (see ensureAllByName). */
   async ensureAll(requests: CreateProjectRequest[]): Promise<ProjectEnsureResult[]> {
-    return ensureAllByName(await this.listAll(), requests, (request) => this.create(request));
+    return ensureAllByName(await this.listAll(), requests, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 
   /** Subprojects of one project (they are not in projects/list). FilterData.Id is the parent id. */
@@ -78,17 +91,15 @@ export class ProjectsApi {
 
   /**
    * Subprojects: same rule, keyed by parent id + name. Loads the subprojects of every parent
-   * in `requests` once (requests must have parentId). Created ones are returned as stored
-   * in the parent's subproject list.
+   * in `requests` once (requests must have parentId), and once more after the creates:
+   * created ones are returned as stored in the parent's subproject list.
    */
   async ensureAllSubprojects(requests: CreateProjectRequest[]): Promise<ProjectEnsureResult[]> {
     const parentIds = [...new Set(requests.map((request) => request.parentId!))];
-    const existing = (await Promise.all(parentIds.map((id) => this.listSubprojects(id)))).flat();
-    return ensureAllByKey(existing, requests, subprojectKey, async (request) => {
-      const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-      const created = (await this.listSubprojects(request.parentId!)).find((s) => s.id === id);
-      if (!created) throw new Error(`subproject ${id} not found under parent ${request.parentId} after create`);
-      return created;
+    const listParents = async () => (await Promise.all(parentIds.map((id) => this.listSubprojects(id)))).flat();
+    return ensureAllByKey(await listParents(), requests, subprojectKey, {
+      create: async (request) => (await this.api.postData<{ id: number }>(`${BASE}/create`, request)).id,
+      reload: listParents,
     });
   }
 }

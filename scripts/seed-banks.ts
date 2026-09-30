@@ -15,6 +15,7 @@
  */
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
+import { mapLimit, SEED_CONCURRENCY } from '../utils/concurrency';
 import fs from 'fs';
 import { ensureApiSession } from '../api/auth';
 import { BanksApi, type Bank, type BankEnsureResult, type CreateBankRequest } from '../api/banks';
@@ -26,7 +27,7 @@ import { assertWorkbookWritable, markRows, readSheet } from './master-data/workb
 const SHEET = '2. Banks';
 const JSON_FILE = 'data/master/banks.json';
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const rows = await readSheet(SHEET, 'Bank ID');
   const items = rows.map((row) => ({
@@ -42,7 +43,7 @@ async function main(): Promise<void> {
     building: row['Building/Block'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -50,6 +51,11 @@ async function main(): Promise<void> {
   const cityNotes = new Map<string, string>();
   try {
     const geo = new GeoApi(api);
+    // Geo lookups in parallel first; the loop below then reads them from the GeoApi cache
+    await mapLimit(selected, SEED_CONCURRENCY, async ({ country, city }) => {
+      const countryId = await geo.countryId(country);
+      if (countryId !== undefined) await geo.city(countryId, city);
+    });
     const requests: { key: string; request: CreateBankRequest }[] = [];
     for (const item of selected) {
       const { key, country, city: cityName, ...fields } = item;
@@ -90,7 +96,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

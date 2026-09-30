@@ -28,6 +28,7 @@ Updated: 2026-09-29. Environment: uat (`https://uat.ctrm.biz`).
 | Q-30 | **Fujairah without sanction status.** PRT-001 "Fujairah" (id 1) was created by hand without the sanction status, but tab 12 marks it "Restricted". The seed does not update existing records. Should it be deleted and seeded again, or fixed in the UI? | QA lead | The restricted-port negative test. |
 | Q-31 | **Resource city.** Tab 13 has no city column; the seed uses the city of the resource's port (so resources at ports from Q-28 get the same wrong city, e.g. Ruwais → "Abu Dhabi"). The example request used "Al Ruways Industrial City" for Ruwais Refinery West, which a search for "Ruwais" does not find. Should tab 13 get a City column? | BA | Correct city of resources. |
 | Q-32 | **Resource fields not sent.** Resource Type, Terminal, Status (3 Inactive, 2 Under Review) and Notes are not sent: the create request has no type or terminal, and the example request had no notes. Where are the resource type and the resource-terminal link set? Should Notes go to `notes`? | BA, Dev | Terminals (tab 15) and resource types. |
+| Q-34 | **HTTP 500 on parallel requests.** With 5 parallel deletes uat answers some with HTTP 500 `errorCode 1` ("Общая техническая ошибка"); some of them are deleted anyway, others pass when sent again one by one. Is this a known server issue (locking, transactions)? Creates in `seed:all` also run in parallel and may hit the same error. | Dev | Safe concurrency for seeds (`SEED_CONCURRENCY`). |
 
 ## API and system behaviour
 
@@ -71,3 +72,4 @@ Updated: 2026-09-29. Environment: uat (`https://uat.ctrm.biz`).
 | R-05 | Project start date when the subprojects have different dates. | The earliest Start Date among the project's rows. |
 | R-06 | Are the workbook data (including IBANs) real? | All data is fictional; the workbook is kept in the repository. |
 | R-07 | Currencies and countries: predefined or seeded? | Predefined in the system (`user/dictionary` currencies, geo lists), not seeded. |
+| R-08 | Can the seeded banks be deleted? `banks/delete` answers `errorCode 70` ("used by another record") even with no counterparties or accounts left. | Banks cannot be deleted through the API or the UI. The team deletes them directly in the database when needed (done on uat on 2026-09-30); `seed:delete` skips banks. |

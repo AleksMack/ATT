@@ -23,6 +23,8 @@ export function printResults<Req, Rec extends { id: number }>(
   describe: (record: Rec) => unknown,
 ): void {
   for (const { key, result } of results) {
+    // Map-only mode (npm run seed:map) prints only the totals
+    if (MAP_ONLY) break;
     const request = JSON.stringify(result.request);
     if (result.status === 'error') {
       console.log(`ERROR    ${key}  ${request}\n         ${result.error}`);

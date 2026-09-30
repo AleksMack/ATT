@@ -15,6 +15,7 @@
  */
 import 'dotenv/config';
 import { updateIdMap } from '../utils/idMap';
+import { mapLimit, SEED_CONCURRENCY } from '../utils/concurrency';
 import fs from 'fs';
 import { ensureApiSession } from '../api/auth';
 import { ApiClient } from '../api/client';
@@ -26,7 +27,7 @@ import { assertWorkbookWritable, markRows, readSheet } from './master-data/workb
 const SHEET = '15. Terminals';
 const JSON_FILE = 'data/master/terminals.json';
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const portsInBook = new Map((await readSheet('12. Load & Unload Ports', 'Port ID')).map((r) => [r['Port ID'], r]));
   const rows = await readSheet(SHEET, 'Terminal ID');
@@ -38,7 +39,7 @@ async function main(): Promise<void> {
     notes: row['Notes'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -46,14 +47,19 @@ async function main(): Promise<void> {
   try {
     const ports = new PortsApi(api);
     const portsByCode = new Map((await ports.listAll()).map((p) => [p.unlocode, p]));
-    const details = new Map<number, Port>();
+    // getbyid of every port the rows use, in parallel (the list has no country and city)
+    const usedPorts = [
+      ...new Set(selected.flatMap((item) => portsByCode.get(portsInBook.get(item.portId)?.['UN/LOCODE'] ?? '')?.id ?? [])),
+    ];
+    const details = new Map<number, Port>(
+      await mapLimit(usedPorts, SEED_CONCURRENCY, async (id) => [id, await ports.getById(id)] as const),
+    );
 
     const requests: { key: string; request: CreateTerminalRequest }[] = [];
     for (const item of selected) {
       const request: CreateTerminalRequest = { name: item.name, portId: 0, countryId: 0, cityId: 0, addressLine: item.notes };
       const bookPort = portsInBook.get(item.portId);
       const port = bookPort && portsByCode.get(bookPort['UN/LOCODE']);
-      if (port && !details.has(port.id)) details.set(port.id, await ports.getById(port.id));
       const detail = port && details.get(port.id);
 
       const error = !bookPort
@@ -92,7 +98,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

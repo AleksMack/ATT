@@ -6,11 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Known issues
+- uat answers some parallel requests with HTTP 500 `errorCode 1` (Q-34). `seed:delete` retries failed deletes one by one and counts "not found" on the retry as deleted. Parallel creates hit it too; `ensureAllByKey` checks the reloaded list after a failed create.
+- A unique field not yet listed in `conflictKeys` can make a different row of a duplicate pair fail than in a serial run.
+- Playwright errors of API requests (e.g. a network failure in `ensureApiSession()`) include the call log with the `cookie` header, so the RefreshToken is printed to the console. Errors need to be stripped of the call log before they are printed.
 - 14 ports have a wrong city (13 got the first city of the country, "Rio Grande" got "Rio Grande da Serra"), and PRT-001 "Fujairah" has no sanction status although tab 12 marks it "Restricted" (open questions Q-28, Q-30).
 - 14 escalations are not created (ESC-013, 014, 015, 021, 026, 028, 031, 032, 036, 040, 041, 043, 044, 050): their names are already used by other rows of tab 10, and the system requires unique escalation names. Waiting for BA (open question Q-26).
 - CP-023 "Samarqand Energiya", its 2 bank accounts (ACC-0047, ACC-0048) and vessel VSL-013 "Bohai Legend" (CP-023 is the operator) are not created: its abbreviation "SE" is already used by CP-014 "Santos Energia", and counterparty abbreviations must be unique (`errorCode` 16).
 - 6 banks got the first city of their country because their city is not in the geo list or is spelled differently (BNK-002, 005, 008, 010, 012, 016). Their city in the system is wrong until the workbook or the geo list is aligned.
 - The HTML report of the UI `setup` project shows the password and OTP in step titles (`Fill "<value>"`). Trace and video being off does not prevent it. The leaking local report was deleted; `setup` needs a fix before its report is shared.
+
+## 2026-09-30 — Speed up seed:all, add seed:delete
+
+### Changed
+- `npm run seed:all` is faster: 76 s on uat on an empty database with the default `SEED_CONCURRENCY=5` (02:24:15 to 02:25:31), 121.8 s with `SEED_CONCURRENCY=2`; about 10 min before. Creates run 5 at a time (`SEED_CONCURRENCY`, `utils/concurrency.ts`); rows sharing the natural key or a unique field (escalation name, counterparty abbreviation) still run one after another in workbook order. After the creates each seed loads the list once instead of a getbyid per record (subprojects: once per parent instead of after every create). Country and city lookups are cached and run in parallel before the rows are built; terminals load their ports in parallel; bank accounts load currencies, clients and banks at the same time.
+- `seed:all` and `seed:map` run every seed in one process (`scripts/seed-all.ts`, `scripts/master-data/seeds.ts`) instead of 16 `npm` / `tsx` processes, and print the time of each seed. Each seed exports `main(limit)` and still runs alone with `npm run seed:<name>`. `seed:map` prints only totals per seed.
+- API clients: `createId()` sends only the create request; `create()` still returns the full record (create + getbyid). `ensureAllByKey` / `ensureAllByName` take `{ create, reload, conflictKeys }`.
+
+### Added
+- `npm run seed:delete` (`scripts/seed-delete.ts`): deletes every record that matches a workbook row, so `seed:all` can be rerun and timed without cleaning the database. Records are found as in `seed:map` (fresh id map), including records created by hand before the first seed (decided by the team). Reverse seed order, 5 deletes at a time, errors reported without stopping; dry run unless `--confirm`; `--only <resources>`; uat only. Deleted keys leave the id map; the workbook is not changed.
+- Errors of non-2xx API responses now include the server's `errorCode` and message (e.g. HTTP 500 errorCode 1, "Общая техническая ошибка"); the request is never included.
+- `deleteById()` in every API client (and `deleteById()` in `api/referenceData.ts`): reads the lock token with getbyid, then sends `{ id, token }` to delete.
+- `docs/commands.md`: how to run the tests (all, by project, one file, one test) and the seeds (all, one by one, defaults, order) from a terminal.
+- First `seed:delete -- --confirm` on uat (2026-09-30): 582 of 612 records deleted (with the 59 terminals of the test run before it) (all characteristics, products, subproducts, escalations, shippers, legal forms, counterparties, bank accounts, vessels, ports, terminals, resources, projects; subprojects went with their projects). The 30 banks are not deleted: `errorCode 70`; banks cannot be deleted through the API or the UI (R-08), so `seed:delete` now skips them; the team deleted them in the database (checked read-only: 0 banks, and nothing else of the workbook left).
+- Full reseed on uat with the faster `seed:all` (`SEED_CONCURRENCY=2`, one run, 2026-09-30): 51 characteristics, 14 products, 23 subproducts, 36 escalations, 32 shippers, 14 legal forms, 49 counterparties, 99 bank accounts, 49 vessels, 50 ports, 59 terminals, 50 resources, 6 projects, 50 subprojects created; the 30 banks were not deleted before and are "exists". Known workbook errors as before (14 escalation names, CP-023 with 2 accounts and 1 vessel). 16 creates (1 legal form, 4 counterparties, 11 accounts) got HTTP 500 errorCode 1 but were stored (checked read-only: present once, no duplicates), so their rows are wrongly red in the workbook.
+- Second `seed:delete -- --confirm` on uat after the faster reseed (2026-09-30): everything deleted except the 30 banks; checked read-only: 0 projects, 0 subprojects (`projects/projectsubprojects`), 0 counterparties, accounts and legal forms. Two script bugs showed: "not found" on the retry was still reported as an error (a backspace character had got into the regex), and subprojects cannot be deleted by the script (their list has no lock token). Both fixed: the regex is repaired, and subprojects have no step of their own, they go with their projects.
+- Full reseed on uat on an empty database (banks deleted in the database; `SEED_CONCURRENCY=5`, one run, 2026-09-30, 76 s): 51 characteristics, 14 products, 23 subproducts, 36 escalations, 32 shippers (50 rows), 30 banks, 14 legal forms, 49 counterparties, 99 bank accounts, 49 vessels, 50 ports, 59 terminals, 50 resources, 6 projects, 50 subprojects created. Only the known workbook errors: 14 escalation names (Q-26), CP-023 with its 2 accounts and 1 vessel (Q-01). Checked read-only: no duplicate legal forms, counterparties or accounts.
+
+### Fixed
+- `ensureAllByKey` now checks the reloaded list after a failed create and reports a record found with that key as created (HTTP 500 that still stored the record).
 
 ## 2026-09-29 — Add terminals seed, reuse API session, full reseed on uat
 
