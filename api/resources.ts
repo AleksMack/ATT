@@ -1,6 +1,6 @@
 import type { ApiClient, PagedList } from './client';
 import type { SanctionStatus } from './ports';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** A resource as the seed sees it: id = the resource id (entityId in the logistic objects list). */
 export interface Resource {
@@ -53,13 +53,26 @@ export class ResourcesApi {
     return this.api.getData('resources/getbyid', { id });
   }
 
-  async create(request: CreateResourceRequest): Promise<Resource> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, 'resources/getbyid', 'resources/delete', id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateResourceRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>('resources/create', request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateResourceRequest): Promise<Resource> {
+    return this.getById(await this.createId(request));
   }
 
   /** Resources are matched by name: several resources share a port and its UN/LOCODE. */
   async ensureAll(requests: CreateResourceRequest[]): Promise<ResourceEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => item.name, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => item.name, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

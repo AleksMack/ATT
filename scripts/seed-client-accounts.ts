@@ -36,7 +36,7 @@ const JSON_FILE = 'data/master/client-accounts.json';
 const STATUS_DATE = '2020-09-01';
 const STATUSES: Record<string, number> = { Active: 0, Blocked: 1 };
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const counterparties = new Map((await readSheet('1. Counterparties', 'Counterparty ID')).map((r) => [r['Counterparty ID'], r]));
   const banksInBook = new Map((await readSheet('2. Banks', 'Bank ID')).map((r) => [r['Bank ID'], r]));
@@ -51,16 +51,20 @@ async function main(): Promise<void> {
     status: row['Status'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
   const results: { key: string; result: ClientAccountEnsureResult }[] = [];
   try {
-    const dictionary = await api.getData<{ currencies: { id: number; name: string }[] }>('user/dictionary');
+    const [dictionary, clients, banks] = await Promise.all([
+      api.getData<{ currencies: { id: number; name: string }[] }>('user/dictionary'),
+      new ClientsApi(api).listAll(),
+      new BanksApi(api).listAll(),
+    ]);
     const currencies = new Map(dictionary.currencies.map((c) => [c.name, c.id]));
-    const clientIds = new Map((await new ClientsApi(api).listAll()).map((c) => [c.legalName, c.id]));
-    const bankIds = new Map((await new BanksApi(api).listAll()).map((b) => [b.swiftBic, b.id]));
+    const clientIds = new Map(clients.map((c) => [c.legalName, c.id]));
+    const bankIds = new Map(banks.map((b) => [b.swiftBic, b.id]));
 
     const requests: { key: string; request: CreateClientAccountRequest }[] = [];
     for (const item of selected) {
@@ -123,7 +127,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

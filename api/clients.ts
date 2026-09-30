@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET clients/list (counterparties). */
 export interface Client {
@@ -56,17 +56,34 @@ export class ClientsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateClientRequest): Promise<Client> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateClientRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateClientRequest): Promise<Client> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Client, 'id' | 'lock'>): Promise<void> {
     await this.api.postData(`${BASE}/delete`, { id: record.id, token: record.lock.token });
   }
 
-  /** Loads the full list once and creates only counterparties whose legal name is not there yet. */
+  /**
+   * Loads the full list once and creates only counterparties whose legal name is not there yet.
+   * Abbreviations must be unique too (errorCode 16), so rows sharing one are sent in order.
+   */
   async ensureAll(requests: CreateClientRequest[]): Promise<ClientEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => item.legalName, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => item.legalName, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+      conflictKeys: (request) => [`abbreviation:${request.abbreviation}`],
+    });
   }
 }

@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByName, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByName, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET legalforms/list and getbyid. */
 export interface LegalForm {
@@ -39,9 +39,19 @@ export class LegalFormsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateLegalFormRequest): Promise<LegalForm> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateLegalFormRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateLegalFormRequest): Promise<LegalForm> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<LegalForm, 'id' | 'lock'>): Promise<void> {
@@ -50,6 +60,9 @@ export class LegalFormsApi {
 
   /** Loads the full list once and creates only the missing legal forms (see ensureAllByName). */
   async ensureAll(requests: CreateLegalFormRequest[]): Promise<LegalFormEnsureResult[]> {
-    return ensureAllByName(await this.listAll(), requests, (request) => this.create(request));
+    return ensureAllByName(await this.listAll(), requests, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

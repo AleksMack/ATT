@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** A port as the seed sees it: id = the port id (entityId in the logistic objects list). */
 export interface Port {
@@ -71,13 +71,26 @@ export class PortsApi {
     return this.api.getData('ports/getbyid', { id });
   }
 
-  async create(request: CreatePortRequest): Promise<Port> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, 'ports/getbyid', 'ports/delete', id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreatePortRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>('ports/create', request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreatePortRequest): Promise<Port> {
+    return this.getById(await this.createId(request));
   }
 
   /** The natural key is the UN/LOCODE: creates only ports whose code is not in the list yet. */
   async ensureAll(requests: CreatePortRequest[]): Promise<PortEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => item.unlocode, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => item.unlocode, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

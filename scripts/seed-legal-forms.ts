@@ -24,7 +24,7 @@ import { assertWorkbookWritable, markRows, readSheet } from './master-data/workb
 const SHEET = '1. Counterparties';
 const JSON_FILE = 'data/master/legal-forms.json';
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const rows = await readSheet(SHEET, 'Counterparty ID');
 
@@ -36,7 +36,7 @@ async function main(): Promise<void> {
     items.push({ key: eng, request: { name: eng, abbreviation: eng, name_RUS: rus, abbreviation_RUS: rus } });
   }
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items.map((i) => i.request), null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -68,7 +68,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

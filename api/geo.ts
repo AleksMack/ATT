@@ -12,23 +12,24 @@ export interface CityMatch {
   match: 'exact' | 'closest' | 'fallback';
 }
 
-/** Countries and cities (English names) from geoobjectsearch. Results are cached per run. */
+/** Countries and cities (English names) from geoobjectsearch. Every lookup is cached per run. */
 export class GeoApi {
-  private readonly countries = new Map<string, number | undefined>();
+  // Promises, so parallel lookups of the same name send one request
+  private readonly countries = new Map<string, Promise<number | undefined>>();
+  private readonly cityLists = new Map<string, Promise<GeoItem[]>>();
 
   constructor(private readonly api: ApiClient) {}
 
   /** Country id by exact English name, or undefined. */
-  async countryId(name: string): Promise<number | undefined> {
-    if (!this.countries.has(name)) {
+  countryId(name: string): Promise<number | undefined> {
+    return cached(this.countries, name, async () => {
       const page = await this.api.getData<PagedList<GeoItem>>('geoobjectsearch/countrylisteng', {
         'FilterData.Name': name,
         PageIndex: 0,
         PageSize: 50,
       });
-      this.countries.set(name, page.records.find((c) => c.name === name)?.id);
-    }
-    return this.countries.get(name);
+      return page.records.find((c) => c.name === name)?.id;
+    });
   }
 
   /**
@@ -66,13 +67,26 @@ export class GeoApi {
     return first && { id: first.id, name: first.name, match: 'fallback' };
   }
 
-  private async cities(countryId: number, name?: string): Promise<GeoItem[]> {
-    const page = await this.api.getData<PagedList<GeoItem>>('geoobjectsearch/citylisteng', {
-      'FilterData.CountryId': countryId,
-      ...(name ? { 'FilterData.Name': name } : {}),
-      PageIndex: 0,
-      PageSize: 50,
+  private cities(countryId: number, name?: string): Promise<GeoItem[]> {
+    return cached(this.cityLists, `${countryId}/${name ?? ''}`, async () => {
+      const page = await this.api.getData<PagedList<GeoItem>>('geoobjectsearch/citylisteng', {
+        'FilterData.CountryId': countryId,
+        ...(name ? { 'FilterData.Name': name } : {}),
+        PageIndex: 0,
+        PageSize: 50,
+      });
+      return page.records;
     });
-    return page.records;
   }
+}
+
+/** The cached promise for `key`, started with `load` on the first call. A failed lookup is not kept. */
+function cached<T>(cache: Map<string, Promise<T>>, key: string, load: () => Promise<T>): Promise<T> {
+  let promise = cache.get(key);
+  if (!promise) {
+    promise = load();
+    cache.set(key, promise);
+    promise.catch(() => cache.delete(key));
+  }
+  return promise;
 }

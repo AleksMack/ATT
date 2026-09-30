@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET vessels/list and getbyid. */
 export interface Vessel {
@@ -50,9 +50,19 @@ export class VesselsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateVesselRequest): Promise<Vessel> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateVesselRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateVesselRequest): Promise<Vessel> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Vessel, 'id'> & { lock: { token: string } }): Promise<void> {
@@ -61,6 +71,9 @@ export class VesselsApi {
 
   /** Loads the full list once and creates only vessels whose IMO number is not there yet. */
   async ensureAll(requests: CreateVesselRequest[]): Promise<VesselEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, (item) => String(item.imoNumber), (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, (item) => String(item.imoNumber), {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

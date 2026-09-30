@@ -8,13 +8,16 @@
  */
 import { assertWorkbookWritable, clearAllMarks } from './master-data/workbook';
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   assertWorkbookWritable();
   const { cells, statusColumns } = await clearAllMarks();
   console.log(`Workbook cleared: ${cells} colored cells, ${statusColumns} status columns emptied.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

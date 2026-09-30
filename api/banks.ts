@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByKey, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET banks/list. */
 export interface Bank {
@@ -50,9 +50,19 @@ export class BanksApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreateBankRequest): Promise<Bank> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreateBankRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreateBankRequest): Promise<Bank> {
+    return this.getById(await this.createId(request));
   }
 
   async delete(record: Pick<Bank, 'id'> & { lock: { token: string } }): Promise<void> {
@@ -61,6 +71,9 @@ export class BanksApi {
 
   /** Loads the full list once and creates only banks whose SWIFT/BIC is not there yet. */
   async ensureAll(requests: CreateBankRequest[]): Promise<BankEnsureResult[]> {
-    return ensureAllByKey(await this.listAll(), requests, bankKey, (request) => this.create(request));
+    return ensureAllByKey(await this.listAll(), requests, bankKey, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 }

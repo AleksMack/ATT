@@ -63,7 +63,10 @@ export class ApiClient {
 
   private async unwrap<T>(response: APIResponse, method: string, path: string): Promise<T> {
     if (!response.ok()) {
-      throw new Error(`${method} ${path} failed: HTTP ${response.status()}`);
+      // Only the server's error code and message, never the request (it may hold secrets)
+      const body = (await response.json().catch(() => undefined)) as Partial<ApiEnvelope<unknown>> & { title?: string } | undefined;
+      const reason = body?.error ? `errorCode ${body.error.errorCode} ${body.error.message ?? ''}` : (body?.title ?? '');
+      throw new Error(`${method} ${path} failed: HTTP ${response.status()} ${reason}`.trim());
     }
     const body = (await response.json()) as ApiEnvelope<T>;
     if (body.error?.errorCode) {

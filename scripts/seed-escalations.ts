@@ -28,7 +28,7 @@ const JSON_FILE = 'data/master/escalations.json';
 const DIRECTIONS: Record<string, number> = { Above: 3, Below: 2 };
 const TYPES: Record<string, boolean> = { Penalty: true, Premium: false, Rejection: false };
 
-async function main(): Promise<void> {
+export async function main(limit = limitArg(1)): Promise<void> {
   assertWorkbookWritable();
   const rows = await readSheet(SHEET, 'Escalation ID');
   const items = rows.map((row) => ({
@@ -41,7 +41,7 @@ async function main(): Promise<void> {
     comment: row['Notes'],
   }));
   fs.writeFileSync(JSON_FILE, `${JSON.stringify(items, null, 2)}\n`);
-  const selected = items.slice(0, limitArg(1));
+  const selected = items.slice(0, limit);
 
   await ensureApiSession();
   const api = await ApiClient.create();
@@ -97,7 +97,10 @@ async function main(): Promise<void> {
   console.log(`Workbook tab "${SHEET}" updated.`);
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}

@@ -16,3 +16,6 @@ node_modules/
 
 # Id maps are environment-specific (data/master/id-map.<env>.json)
 /data/master/id-map.*.json
+
+# Personal Claude Code settings (permissions)
+/.claude/settings.local.json

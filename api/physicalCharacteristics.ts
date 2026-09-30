@@ -1,5 +1,5 @@
 import type { ApiClient, PagedList } from './client';
-import { ensureAllByName, ensureOne, listAllPages, type EnsureResult } from './referenceData';
+import { deleteById, ensureAllByName, ensureOne, listAllPages, type EnsureResult } from './referenceData';
 
 /** Record of GET physicalcharacteristics/list and getbyid (Swagger: FullCharacteristic). */
 export interface PhysicalCharacteristic {
@@ -50,9 +50,19 @@ export class PhysicalCharacteristicsApi {
     return this.api.getData(`${BASE}/getbyid`, { id });
   }
 
-  async create(request: CreatePhysicalCharacteristicRequest): Promise<PhysicalCharacteristic> {
+  /** Deletes by id (reads the lock token with getbyid first). */
+  deleteById(id: number): Promise<void> {
+    return deleteById(this.api, `${BASE}/getbyid`, `${BASE}/delete`, id);
+  }
+
+  /** Sends the create request only and returns the new record's id. */
+  async createId(request: CreatePhysicalCharacteristicRequest): Promise<number> {
     const { id } = await this.api.postData<{ id: number }>(`${BASE}/create`, request);
-    return this.getById(id);
+    return id;
+  }
+
+  async create(request: CreatePhysicalCharacteristicRequest): Promise<PhysicalCharacteristic> {
+    return this.getById(await this.createId(request));
   }
 
   /** Delete needs the record's lock token. */
@@ -62,7 +72,10 @@ export class PhysicalCharacteristicsApi {
 
   /** Loads the full list once and creates only the missing records (see ensureAllByName). */
   async ensureAll(requests: CreatePhysicalCharacteristicRequest[]): Promise<CharacteristicEnsureResult[]> {
-    return ensureAllByName(await this.listAll(), requests, (request) => this.create(request));
+    return ensureAllByName(await this.listAll(), requests, {
+      create: (request) => this.createId(request),
+      reload: () => this.listAll(),
+    });
   }
 
   ensure(request: CreatePhysicalCharacteristicRequest): Promise<{ record: PhysicalCharacteristic; created: boolean }> {

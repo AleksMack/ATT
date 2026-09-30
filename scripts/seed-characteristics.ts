@@ -22,7 +22,7 @@ const SHEET = '7. Characteristics';
 const FIRST_HEADER = 'Characteristic ID';
 const JSON_FILE = 'data/master/characteristics.json';
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   assertWorkbookWritable();
   const rows = await readSheet(SHEET, FIRST_HEADER);
   const items = rows.map((row) => ({
@@ -73,7 +73,10 @@ function print(items: { key: string; name: string }[], results: EnsureResult[]):
   }
 }
 
-main().catch((error) => {
-  console.error((error as Error).message);
-  process.exit(1);
-});
+// Run directly (npm run seed:...), not when imported by seed-all or seed-map
+if (require.main === module) {
+  main().catch((error) => {
+    console.error((error as Error).message);
+    process.exit(1);
+  });
+}
